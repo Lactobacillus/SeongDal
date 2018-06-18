@@ -7,10 +7,18 @@
     <header>
       <% include ./partials/header %>
     </header>
+    <div class="sidenav">
+       <a href="/"><img src="/images/seongdal.png" style="width:100%;"></a>
+       <a href="/sync_measure" style="background: rgb(65,132,143);">1. 싱크로율 측정</a>
+       <a href="#">2. 더빙</a>
+       <a href="#">3. 달인 갤러리</a>
+       <a href="#">4. 종료</a>
+    </div>
+
     <div class="main">
       <h1 class="text">성대모사할 장면을 골라주세요.</h1>
       <div class="row">
-  	     <div class="column">
+  	     <div class="column" onclick="location.href='/detail'">
   		       <h2 class="text">1. 베테랑 - 유아인</h2>
   		       <h2 class="text">"어의가 없네"</h2>
   		       <div class="image-wrapper">
@@ -26,5 +34,5 @@
   	     </div>
       </div>
     </div>
-   </body>`
+   </body>
 </html>
