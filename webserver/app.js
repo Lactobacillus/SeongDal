@@ -9,6 +9,10 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
+app.get('/sync_measure', function (req, res) {
+  res.render('sync_measure');
+});
+
 app.listen(8080, function () {
   console.log('Server On!');
 });
