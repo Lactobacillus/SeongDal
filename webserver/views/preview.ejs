@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <style>
+  #video {
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     right: 0px;
+     margin: 0 auto;
+     min-height: 100%;
+     width: auto;
+     height: auto;
+     z-index: -1;
+     overflow: hidden;
+}
+  </style>
+  <body style="background: rgb(151, 192, 183);">
+    <header>
+      <% include ./partials/header %>
+    </header>
+    <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+      <source src="/videos/example1.mp4">
+    </video>
+ </body>
+</html>

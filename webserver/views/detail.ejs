@@ -3,21 +3,6 @@
   <head>
     <% include ./partials/head %>
   </head>
-  <style>
-  .midnav {
-      height: 100%;
-      width: 85%;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      background-color: rgb(10, 28, 40);
-      overflow-x: hidden;
-      padding-top: 20px;
-  }
-  </style>
   <body style="background: rgb(151, 192, 183);">
     <header>
       <% include ./partials/header %>
@@ -35,7 +20,7 @@
           <h1 style="color:white; text-align:center; margin-bottom: 10%;">배우: 유아인</h1>
           <h1 style="color:white; text-align:center;">대사: "어이가 없네"</h1>
         </div>
-        <div class="column" style="margin-top: 10%;">
+        <div class="column" style="margin-top: 10%;" onclick="location.href='/preview'">
           <div style="background: rgb(151, 192, 183); padding: 10px; border: solid rgb(65, 132, 143) 5px;">
             <h1 style="text-align:center;">1. 장면 미리보기</h1>
           </div>

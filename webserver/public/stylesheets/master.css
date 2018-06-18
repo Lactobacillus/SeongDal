@@ -22,6 +22,20 @@ body {
     display: block;
 }
 
+.midnav {
+    height: 100%;
+    width: 85%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: rgb(10, 28, 40);
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
 .main {
     margin-left: 300px; /* Same as the width of the sidenav */
     margin-top: 100px;

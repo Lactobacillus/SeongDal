@@ -14,7 +14,11 @@ app.get('/sync_measure', function (req, res) {
 });
 
 app.get('/detail', function (req, res) {
-  res.render('detail');  
+  res.render('detail');
+});
+
+app.get('/preview', function (req, res) {
+  res.render('preview');
 });
 
 app.listen(8080, function () {
