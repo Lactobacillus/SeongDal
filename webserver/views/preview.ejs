@@ -11,6 +11,8 @@
      right: 0px;
      margin: 0 auto;
      min-height: 100%;
+     max-height: 100%;
+     max-width: 100%;
      width: auto;
      height: auto;
 }
@@ -21,7 +23,8 @@
     </header>
     <div class="video">
       <video id="myVideo" preload="auto" autoplay="true" loop="loop" volume="10" style="height: -webkit-fill-available;left: 0;right: 0;margin: 0 auto;position: absolute;">
-        <source src="/videos/example1.mp4">
+        <source src="/videos/<%=movie%>">
+        <track kind="subtitles" src="/subtitles/example1.vtt" srclang="en" label="English"/>
       </video>
     </div>
  </body>

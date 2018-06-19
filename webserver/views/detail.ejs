@@ -12,15 +12,15 @@
       <div class="row">
         <div class="column">
           <div class="image-wrapper">
-            <img src="/images/example1.jpeg" style="border: solid white 5px;">
+            <img src="/images/<%=script.image%>" style="border: solid white 5px;">
           </div>
         </div>
         <div class="column">
-          <h1 style="color:white; text-align:center; margin-bottom: 10%;">영화: 베테랑</h1>
-          <h1 style="color:white; text-align:center; margin-bottom: 10%;">배우: 유아인</h1>
-          <h1 style="color:white; text-align:center;">대사: "어이가 없네"</h1>
+          <h1 style="color:white; text-align:center; margin-bottom: 10%;">영화: <%=script.movieName%></h1>
+          <h1 style="color:white; text-align:center; margin-bottom: 10%;">배우: <%=script.actorName%></h1>
+          <h1 style="color:white; text-align:center;">대사: "<%=script.sentence%>"</h1>
         </div>
-        <div class="column" style="margin-top: 10%;" onclick="location.href='/preview'">
+        <div class="column" style="margin-top: 10%;" onclick="location.href='/preview/<%=script.id%>'">
           <div style="background: rgb(151, 192, 183); padding: 10px; border: solid rgb(65, 132, 143) 5px;">
             <h1 style="text-align:center;">1. 장면 미리보기</h1>
           </div>
@@ -32,7 +32,7 @@
         </div>
         <div class="column" style="max-width: 100%; margin-top: 5%;">
           <div style="background: rgb(151, 192, 183); padding: 10px; border: solid rgb(65, 132, 143) 5px;">
-            <h2 style="text-align:center;">세상 무서울 것 없는 재벌 3세 안하무인 조태오(유아인)가 분노를 표출하는 장면</h2>
+            <h2 style="text-align:center;"><%=script.description%></h2>
           </div>
         </div>
       </div>
