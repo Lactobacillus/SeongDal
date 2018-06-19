@@ -4,7 +4,7 @@
     <% include ./partials/head %>
   </head>
   <style>
-  #video {
+  .video {
      position: absolute;
      top: 0px;
      left: 0px;
@@ -13,16 +13,16 @@
      min-height: 100%;
      width: auto;
      height: auto;
-     z-index: -1;
-     overflow: hidden;
 }
   </style>
   <body style="background: rgb(151, 192, 183);">
     <header>
       <% include ./partials/header %>
     </header>
-    <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
-      <source src="/videos/example1.mp4">
-    </video>
+    <div class="video">
+      <video id="myVideo" preload="auto" autoplay="true" loop="loop" volume="10" style="height: -webkit-fill-available;left: 0;right: 0;margin: 0 auto;position: absolute;">
+        <source src="/videos/example1.mp4">
+      </video>
+    </div>
  </body>
 </html>
