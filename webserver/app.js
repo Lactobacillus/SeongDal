@@ -33,22 +33,27 @@ app.get('/', function (req, res) {
 });
 
 app.get('/sync_measure', function (req, res) {
-  res.render('sync_measure', {script_list: script_list});
+  res.render('mimic/sync_measure', {script_list: script_list});
 });
 
 app.get('/detail/:id', function (req, res) {
   var s_id = req.params.id;
-  res.render('detail', {script: script_list[s_id]});
+  res.render('mimic/detail', {script: script_list[s_id]});
 });
 
 app.get('/preview/:id', function (req, res) {
   var s_id = req.params.id;
-  res.render('preview', {script: script_list[s_id]});
+  res.render('mimic/preview', {script: script_list[s_id]});
 });
 
 app.get('/practice_mimic/:id', function (req, res) {
   var s_id = req.params.id;
-  res.render('practice_mimic', {script: script_list[s_id]});
+  res.render('mimic/practice_mimic', {script: script_list[s_id]});
+});
+
+app.get('/mimic_score/:id', function (req, res) {
+  var s_id = req.params.id;
+  res.render('mimic/mimic_score', {script: script_list[s_id]});
 });
 
 app.listen(8080, function () {
