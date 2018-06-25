@@ -14,9 +14,12 @@
       gigagenie.init(options,function(result_cd,result_msg,extra){
             if(result_cd===200){
                 //init 성공
-                console.log('헬로 지니 실행, Initialize Success');
+                var script = <%- JSON.stringify(script) %>
                 //함수 호출 및 개발 진행
-
+                var vid = document.getElementById("previewVideo");
+                vid.onended = function() {
+                  window.location.href = '/detail/' + script.id;
+                };
                 //callback 방식
                 // var options={};
                 // options.ttstext="성달 서비스를 시작합니다. 호출어를 부른 뒤 원하는 메뉴를 말씀해주세요.";
@@ -72,7 +75,7 @@
     <header>
       <% include ../partials/header %>
     </header>
-    <video controls autoplay style="padding:0;margin:0;">
+    <video id="previewVideo" controls autoplay style="padding:0;margin:0;">
       <source src="/videos/<%=script.movie%>">
     </video>
     <script type="text/vtt" id="subtitle" data-label="Korean" data-lang="ko">

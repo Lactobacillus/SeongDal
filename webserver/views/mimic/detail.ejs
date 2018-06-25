@@ -11,20 +11,39 @@
     	options.keytype="GBOXDEVM"; // 개발(GBOXDEVM) 또는 상용(GBOXCOMM) 키 종류 입력
     	options.apikey="RTUwMDE4OTN8R0JPWERFVk18MTUyODY5MTc4MzQ4Ng=="; // 개발자 포털에서 키를 발급받아 입력
 
-    	gigagenie.init(options,function(result_cd,result_msg,extra){
+      gigagenie.init(options,function(result_cd,result_msg,extra){
             if(result_cd===200){
                 //함수 호출 및 개발 진행
                 var script = <%- JSON.stringify(script) %>
                 //callback 방식
                 var options={};
-                options.ttstext = script.actorName + "의" + script.sentence + "를 선택하셨습니다. 원하는 메뉴를 말씀해주세요.";
+                options.ttstext = script.actorName + "의 " + script.sentence + "를 선택하셨습니다. 원하는 메뉴를 말씀해주세요.";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
-                      window.location.href = '/practice_mimic/' + script.id;
+                      options = {};
+		                  // options.voicemsg = "정답을 말씀해주세요.";
+		                  gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
+                        if(result_cd===200){
+                          //do next action
+                          if (extra.voicetext.replace(/\s/g, "") == "장면미리보기") {
+                            window.location.href = '/preview/' + script.id;
+                          } else if (extra.voicetext.replace(/\s/g, "") == "성대모사시작"){
+                            window.location.href = '/practice_mimic/' + script.id;
+                          } else {
+                            //extra.reason 에 voice 오류 전달.
+                            alert("일치하는 대사가 없습니다.");
+                            window.location.href = '/';
+                          }
+                        } else {
+                          alert("입력 시간이 초과하였습니다.");
+                          window.location.href = '/'
+                        }
+                      });
                     } else {
                      //extra.reason 에 voice 오류 전달.
-                 };
+                     alert("giggenie init error!");
+                 }
                 });
     	    };
     	});
@@ -35,6 +54,20 @@
     	options={};
     	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
     	});
+    };
+
+    gigagenie.voice.onVoiceCommand=function(event){
+      switch(event){
+          case 'nextPage':
+              //navigate next page
+              break;
+          case 'prevPage':
+              //navigate prev page
+              window.history.back();
+              break;
+          default:
+              break;
+      }
     };
     </script>
   </head>

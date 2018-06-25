@@ -22,12 +22,9 @@
                       //1. delivery를 memory로 했을 경우
                       var options={};
                       options.delivery='memory';
-                      options.recordTime=5;
+                      options.recordTime= <%= script.recordTime%>;
 
-                      // putting HTML
-                      // Set the date we're counting down to
                       var countDownDate = new Date().getTime();
-
                       // Update the count down every 1 second
                       var x = setInterval(function() {
                           // Get todays date and time
@@ -35,29 +32,33 @@
                           // Time calculations for days, hours, minutes and seconds
                           var seconds = options.recordTime - Math.floor(((now - countDownDate) % (1000 * 60)) / 1000);
                           // Output the result in an element with id="demo"
-                          document.getElementById("timer").innerHTML = seconds + "s ";
+                          document.getElementById("timer").innerHTML = seconds + "초";
                           // If the count down is over, write some text
                           if (seconds <= 0) {
                               clearInterval(x);
-                              document.getElementById("timer").innerHTML = "EXPIRED";
+                              document.getElementById("timer").innerHTML = "끝!";
                           }
                       }, 1000);
 
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
                         if(result_cd===200) {
-                          alert("The end!");
                           audioBuffer=inBuffer;
                           var audioCtx = new ( window . AudioContext || window . webkitAudioContext ) ( ) ;
                           var source = audioCtx.createBufferSource();
                           source.buffer=audioBuffer;
                           source.connect(audioCtx.destination);
                           source.start(0);
-                        } else console.log('recording fail:'+result_cd)
+                        } else {
+                          console.log('recording fail:'+result_cd);
+                          alert("voice record error!");
+                        }
                       }
+
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
-                        alert("start record audio");
-                        console.log(result_cd);
+                        if (result_cd===200) {
+                          console.log(result_cd);
+                        } else console.log('fail:'+result_cd);
                       });
                     } else {
                      //extra.reason 에 voice 오류 전달.
@@ -113,9 +114,9 @@
     <div class="image-wrapper">
       <img src="/images/<%=script.image%>" style="border: solid white 5px;">
       <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
-        <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
-        <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
-        <a href="/mimic_score/<%=script.id%>">결과 보기</a>
+      <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
+      <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
+      <a href="/mimic_score/<%=script.id%>">결과 보기</a>
       </div>
     </div>
  </body>

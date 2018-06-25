@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <script type="text/javascript" src="http://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
+    <script type="text/javascript">
+    var options={};
+    // 서비스 초기화
+    function init(){
+        options={};
+      options.keytype="GBOXDEVM"; // 개발(GBOXDEVM) 또는 상용(GBOXCOMM) 키 종류 입력
+      options.apikey="RTUwMDE4OTN8R0JPWERFVk18MTUyODY5MTc4MzQ4Ng=="; // 개발자 포털에서 키를 발급받아 입력
+
+      gigagenie.init(options,function(result_cd,result_msg,extra){
+            if(result_cd===200){
+                //init 성공
+                //함수 호출 및 개발 진행
+                var options={};
+                options.ttstext = "하나, 둘, 셋 하면 성대모사를 시작하세요. 하나! 둘! 셋!";
+                gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
+                    if(result_cd===200){
+                      //1. delivery를 memory로 했을 경우
+                      var options={};
+                      options.delivery='webhook';
+                      options.recordTime=5;
+                      options.url='http://211.252.86.136:8080/practice_mimic/<%=script.id%>';
+
+                      var countDownDate = new Date().getTime();
+                      // Update the count down every 1 second
+                      var x = setInterval(function() {
+                          // Get todays date and time
+                          var now = new Date().getTime();
+                          // Time calculations for days, hours, minutes and seconds
+                          var seconds = options.recordTime - Math.floor(((now - countDownDate) % (1000 * 60)) / 1000);
+                          // Output the result in an element with id="demo"
+                          document.getElementById("timer").innerHTML = seconds + "초";
+                          // If the count down is over, write some text
+                          if (seconds <= 0) {
+                              clearInterval(x);
+                              document.getElementById("timer").innerHTML = "끝!";
+                          }
+                      }, 1000);
+
+                      var audioBuffer=null;
+                      gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
+                        alert("111");
+                        if(result_cd===200) {
+                          alert("end!");
+                        } else console.log('recording fail:'+result_cd);
+                      }
+
+                      gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
+                        if (result_cd===200) {
+                          alert("start!");
+                          console.log(result_cd);
+                        } else console.log('fail:'+result_cd);
+                      });
+                    } else {
+
+                    };
+                });
+          };
+      });
+
+    }
+
+    // 서비스 종료 명령 수신 API
+    gigagenie.voice.onRequestClose=function(){
+      options={};
+      gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
+      });
+    };
+
+    gigagenie.voice.onVoiceCommand=function(event){
+      switch(event){
+          case 'nextPage':
+              //navigate next page
+              break;
+          case 'prevPage':
+              //navigate prev page
+              window.history.back();
+              break;
+          default:
+              break;
+      }
+    };
+    </script>
+  </head>
+  <style>
+    html, body, video {
+    	padding: 0;
+    	margin: 0;
+    }
+    video {
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	bottom: 0;
+    	right: 0;
+    	width: 100%;
+    	height: 100%;
+    }
+  </style>
+  <body style="background: rgb(151, 192, 183);" onload=init()>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="image-wrapper">
+      <img src="/images/<%=script.image%>" style="border: solid white 5px;">
+      <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
+        <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
+        <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
+        <a href="/mimic_score/<%=script.id%>">결과 보기</a>
+      </div>
+    </div>
+ </body>
+</html>
