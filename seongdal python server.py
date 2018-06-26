@@ -12,7 +12,7 @@ import librosa.display
 import IPython.display as ipd
 from fastdtw import fastdtw
 from scipy.interpolate import interp2d
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 recordPath = os.path.join('/', 'seongdalAudio', 'recorded')
@@ -310,7 +310,7 @@ def testSync(target_audio_path, input_audio_path):
     result['score'] = np.clip(-16 * np.log(result_mfcc) + 120, 0, 100)
 
     return result
-    
+
 @app.route('/', methods = ['GET'])
 @app.route('/index', methods = ['GET'])
 def index():
@@ -341,7 +341,7 @@ def getScore():
 
 			resultDict = {'status' : 0}
 
-		return resultDict
+		return jsonify(resultDict)
 
 if __name__ == '__main__':
 
