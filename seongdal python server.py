@@ -15,8 +15,8 @@ from scipy.interpolate import interp2d
 from flask import Flask, request
 
 app = Flask(__name__)
-recordPath = ''
-originPath = ''
+recordPath = os.path.join('/', 'seongdalAudio', 'recorded')
+originPath = os.path.join('/', 'seongdalAudio', 'original')
 
 #input : y_target, sr_target, y_input, sr_input
 def analyzePitch(y_t, sr_t, y_i, sr_i):
