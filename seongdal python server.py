@@ -36,12 +36,6 @@ def analyzePitch(y_t, sr_t, y_i, sr_i):
     
     return ratio
 
-
-a,b = librosa.load(filesModified[1])
-analyzePitch(a,b,a,b)
-
-
-
 #prefix : "of front part" , "of middle part", "of back part"
 def printPitch(ratio,prefix = "of entire speech"):
       
