@@ -1,9 +1,13 @@
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
+var request = require('request');
 var app = express();
 
 app.set("view engine", 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.raw({ type: 'audio/wav', limit: '50mb' }));
 
 const script_list = [
   {
@@ -51,18 +55,31 @@ app.get('/preview/:id', function (req, res) {
 });
 
 app.get('/practice_mimic/:id', function (req, res) {
-  var s_id = req.params.id;
+  var s_id = req.params.id
   res.render('mimic/practice_mimic', {script: script_list[s_id]});
 });
 
 app.post('/practice_mimic/:id', function (req, res) {
   var s_id = req.params.id;
-  console.log("wow wow!");
-  console.log(req.body);
-  console.log(res);
-  //res.render('mimic/practice_mimic', {script: script_list[s_id]});
+  console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
+  // TODO: save req.body as wav file
+
+  // TODO: execute python server in order to get the score
+
+  // TODO: recieve score from python server
+  // var options = {};
+  // request.get('http://localhost:808/score?fn=raewon2&origin=raewon_original',options,function(err,res,body){
+  //   if(err) {
+  //     console.log(err);
+  //   }
+  //   if(res.statusCode !== 200 ) {
+  //     console.log("status code not 200!");
+  //   }
+  //   console.log("res: " + JSON.stringify(res));
+  //   console.log("body: "+body);
+  //   //TODO Do something with response
+  // });
   res.redirect('mimic/practice_mimic/'+s_id);
-  //res.redirect('/');
 });
 
 app.get('/mimic_score/:id', function (req, res) {

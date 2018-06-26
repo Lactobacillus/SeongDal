@@ -8,8 +8,8 @@
     // 서비스 초기화
     function init(){
         options={};
-      options.keytype="GBOXDEVM"; // 개발(GBOXDEVM) 또는 상용(GBOXCOMM) 키 종류 입력
-      options.apikey="RTUwMDE4OTN8R0JPWERFVk18MTUyODY5MTc4MzQ4Ng=="; // 개발자 포털에서 키를 발급받아 입력
+    	options.keytype="GBOXDEVM"; // 개발(GBOXDEVM) 또는 상용(GBOXCOMM) 키 종류 입력
+    	options.apikey="RTUwMDE4OTN8R0JPWERFVk18MTUyODY5MTc4MzQ4Ng=="; // 개발자 포털에서 키를 발급받아 입력
 
       gigagenie.init(options,function(result_cd,result_msg,extra){
             if(result_cd===200){
@@ -21,9 +21,8 @@
                     if(result_cd===200){
                       //1. delivery를 memory로 했을 경우
                       var options={};
-                      options.delivery='webhook';
-                      options.recordTime=5;
-                      options.url='http://211.252.86.136:8080/practice_mimic/<%=script.id%>';
+                      options.delivery='memory';
+                      options.recordTime= <%= script.recordTime%>;
 
                       var countDownDate = new Date().getTime();
                       // Update the count down every 1 second
@@ -43,32 +42,38 @@
 
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
-                        alert("111");
                         if(result_cd===200) {
-                          alert("end!");
-                        } else console.log('recording fail:'+result_cd);
+                          audioBuffer=inBuffer;
+                          var audioCtx = new ( window . AudioContext || window . webkitAudioContext ) ( ) ;
+                          var source = audioCtx.createBufferSource();
+                          source.buffer=audioBuffer;
+                          source.connect(audioCtx.destination);
+                          source.start(0);
+                        } else {
+                          console.log('recording fail:'+result_cd);
+                          alert("voice record error!");
+                        }
                       }
 
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
                         if (result_cd===200) {
-                          alert("start!");
                           console.log(result_cd);
                         } else console.log('fail:'+result_cd);
                       });
                     } else {
-
-                    };
+                     //extra.reason 에 voice 오류 전달.
+                 };
                 });
-          };
-      });
+    	    };
+    	});
 
     }
 
     // 서비스 종료 명령 수신 API
     gigagenie.voice.onRequestClose=function(){
-      options={};
-      gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
-      });
+    	options={};
+    	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
+    	});
     };
 
     gigagenie.voice.onVoiceCommand=function(event){
@@ -84,6 +89,7 @@
               break;
       }
     };
+
     </script>
   </head>
   <style>
@@ -108,9 +114,9 @@
     <div class="image-wrapper">
       <img src="/images/<%=script.image%>" style="border: solid white 5px;">
       <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
-        <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
-        <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
-        <a href="/mimic_score/<%=script.id%>">결과 보기</a>
+      <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
+      <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
+      <a href="/mimic_score/<%=script.id%>">결과 보기</a>
       </div>
     </div>
  </body>
