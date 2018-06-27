@@ -17,7 +17,7 @@
         </div>
         <div class="column">
           <h1 style="color:white; text-align:center; margin-bottom: 10%; font-size: 40px;">당신의 성대모사 점수는</h1>
-          <h1 style="color:white; text-align:center; margin-bottom: 10%; font-size: 60px;"><%=contact.score%>점</h1>
+          <h1 style="color:white; text-align:center; margin-bottom: 10%; font-size: 60px;">80점</h1>
         </div>
         <div class="column" style="margin-top: 10%;">
           <div style="background: rgb(151, 192, 183); padding: 10px; border: solid rgb(65, 132, 143) 5px;">
@@ -34,11 +34,15 @@
             <h2 style="text-align:center; margin:0; color: white;">성달의 성대모사 분석 결과</h2>
           </div>
           <div style="background: rgb(151, 192, 183); padding: 10px; border: solid rgb(65, 132, 143) 5px;">
+<<<<<<< HEAD
           <% var str = "" %>
           <% if (contact.pitch == 0) {str += "음높이가 적당하고, ";} else if (contact.pitch == 1) {str += "음높이가 낮고, ";} else if (contact.pitch == 2) {str += "음높이가 높고, ";} %>
           <% if (contact.length == 0) {str += "속도는 적당하고, ";} else if (contact.length == 1) {str += "속도는 빠르고, ";} else if (contact.length == 2) {str += "속도는 느리고, ";} %>
           <% if (contact.env == 0) {str += "세기도 적당해요!";} else if (contact.env == 1) {str += "세기가 적절하지 않아요!";} %>
             <h1 style="text-align:center;"><%= str %></h1>
+=======
+            <h1 style="text-align:center;">음높이가 적당하고, 속도는 적당하고, 세기도 적당해요!</h1>
+>>>>>>> fc4d3ee59027339f0e598fa99ff4d09431100798
           </div>
         </div>
       </div>
