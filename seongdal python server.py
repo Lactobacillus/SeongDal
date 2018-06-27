@@ -47,12 +47,12 @@ def printPitch(ratio,prefix = "of entire speech"):
     if ratio > threshold:
 
         code = 1
-        message = "high!"
+        message = "low!"
 
     elif ratio < -threshold:
 
         code = 2
-        message = "low!"
+        message = "high!"
 
 #    elif ratio > threshold1:
 
@@ -111,15 +111,15 @@ def printLength(ratio):
     return code
 
 
-def printEnv(env, y, sr):
+def printEnv(env):
 
-    result = env / (len(y)/sr)
+    result = env
     threshold = 35
 
     code = 0
     message = "perfect!"
 
-    if result <threshold:
+    if result >threshold:
 
         code = 1
         print ("You should care about Envelope!")
@@ -291,7 +291,8 @@ def testSync(target_audio_path, input_audio_path):
 
 
     result_env, _  = fastdtw(env_t, env, dist = sp.spatial.distance.euclidean)
-    code_env = printEnv(result_env, y, sr)
+    result_env /= (len(y)/sr)
+    code_env = printEnv(result_env)
     print("env : ", result_env)
     result['env'] = result_env
     result['env_code'] = code_env
@@ -307,7 +308,7 @@ def testSync(target_audio_path, input_audio_path):
     print(result_mfcc)
 
     #regression
-    result['score'] = np.clip(-16 * np.log(result_mfcc) + 120, 0, 100)
+    result['score'] = np.clip(-16 * np.log(result_mfcc) + 110, 0, 100)
 
     return result
 

@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var wav = require('wav');
 
 app.set("view engine", 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -20,7 +21,7 @@ const script_list = [
     "movieSelected": "example1.mp4#t=4,15",
     "recordTime": 5,
     "description" : "세상 무서울 것 없는 재벌 3세 안하무인 조태오(유아인)가 분노를 표출하는 장면",
-    "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:02.000\n이런 상황을 어dl가 없다고 그래요\n\n2\n00:00:02.000 --> 00:00:06.000\n황당하잖아 아무것도 아닌 손잡이 때문에 해야될 일을 못하니깐\n\n3\n00:00:08.00 --> 00:00:10.000\n지금 내 기분이 그래\n\n4\n00:00:11.500 --> 00:00:20.000\n어이가 없네",
+    "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:02.000\n이런 상황을 어이가 없다고 그래요\n\n2\n00:00:02.000 --> 00:00:06.000\n황당하잖아 아무것도 아닌 손잡이 때문에 해야될 일을 못하니깐\n\n3\n00:00:08.00 --> 00:00:10.000\n지금 내 기분이 그래\n\n4\n00:00:11.500 --> 00:00:20.000\n어이가 없네",
   },
   {
     "id": 1,
@@ -62,6 +63,12 @@ app.get('/practice_mimic/:id', function (req, res) {
 app.post('/practice_mimic/:id', function (req, res) {
   var s_id = req.params.id;
   console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
+  var d = new Date();
+  var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"") + ".wav";
+
+  var writer = new wav.FileWriter(filename, req.body); //filenme , data
+
+
   // TODO: save req.body as wav file
 
   // TODO: execute python server in order to get the score
@@ -77,7 +84,18 @@ app.post('/practice_mimic/:id', function (req, res) {
   //   }
   //   console.log("res: " + JSON.stringify(res));
   //   console.log("body: "+body);
-  //   //TODO Do something with response
+  //
+  //TODO Do something with response
+
+      // Pitch Code
+      // 0: Good, 1: Low, 2:High
+      // Length Code
+      // 0: perfect, 1:fast, 2:slow
+      // Env code
+      // 0: good, 1: bad
+      // score
+      // itself
+
   // });
   res.redirect('mimic/practice_mimic/'+s_id);
 });
