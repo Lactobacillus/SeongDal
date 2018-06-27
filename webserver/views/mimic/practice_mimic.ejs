@@ -43,15 +43,15 @@
 
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
+                        console.log('mimic_record_audio')
                         alert("111");
                         if(result_cd===200) {
                           alert("end!");
                         } else console.log('recording fail:'+result_cd);
                       }
 
-                      console.log(inBuffer);
-
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
+                        console.log('mimic_record_start')
                         if (result_cd===200) {
                           alert("start!");
                           console.log(result_cd);
