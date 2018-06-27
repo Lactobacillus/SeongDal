@@ -66,20 +66,21 @@ app.post('/practice_mimic/:id', function (req, res) {
   var d = new Date();
   var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
 
-  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'), req.body);
-
+  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'));
+  writer.write(req.body)
+  writer.end()
   // TODO: save req.body as wav file
 
   // TODO: execute python server in order to get the score
 
   // TODO: recieve score from python server
   var options = {};
-  if (id == 0) {
+  if (s_id == 0) {
 
     // ain
     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
 
-  }else if (id == 1){
+  }else if (s_id == 1){
 
     // raewon
     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
