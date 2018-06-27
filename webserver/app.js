@@ -20,7 +20,7 @@ const script_list = [
     "movieSelected": "example1.mp4#t=4,15",
     "recordTime": 5,
     "description" : "세상 무서울 것 없는 재벌 3세 안하무인 조태오(유아인)가 분노를 표출하는 장면",
-    "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:02.000\n이런 상황을 어의가 없다고 그래요\n\n2\n00:00:02.000 --> 00:00:06.000\n황당하잖아 아무것도 아닌 손잡이 때문에 해야될 일을 못하니깐\n\n3\n00:00:08.00 --> 00:00:10.000\n지금 내 기분이 그래\n\n4\n00:00:11.500 --> 00:00:20.000\n어이가 없네",
+    "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:02.000\n이런 상황을 어dl가 없다고 그래요\n\n2\n00:00:02.000 --> 00:00:06.000\n황당하잖아 아무것도 아닌 손잡이 때문에 해야될 일을 못하니깐\n\n3\n00:00:08.00 --> 00:00:10.000\n지금 내 기분이 그래\n\n4\n00:00:11.500 --> 00:00:20.000\n어이가 없네",
   },
   {
     "id": 1,
@@ -107,7 +107,12 @@ app.get('/dubbing/practice_dubbing/:id', function (req, res) {
 });
 
 app.get('/gallery', function (req, res) {
-  res.render('gallery/gallery.ejs');
+  res.render('gallery/gallery', {script_list: script_list});
+});
+
+app.get('/gallery/detail/:id', function (req, res) {
+  var s_id = req.params.id;
+  res.render('gallery/detail', {script: script_list[s_id]});
 });
 
 app.listen(8080, function () {

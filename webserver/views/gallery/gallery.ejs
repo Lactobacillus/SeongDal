@@ -13,18 +13,36 @@
 
     	gigagenie.init(options,function(result_cd,result_msg,extra){
             if(result_cd===200){
-                //init 성공
-                console.log('헬로 지니 실행, Initialize Success');
                 //함수 호출 및 개발 진행
 
                 //callback 방식
                 var options={};
-                options.ttstext="성달 서비스를 시작합니다. 호출어를 부른 뒤 원하는 메뉴를 말씀해주세요.";
+                options.ttstext="더빙 연습 화면입니다. 연습하고 싶은 대사를 말씀해주세요";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
+                      options = {};
+		                  // options.voicemsg = "정답을 말씀해주세요.";
+		                  gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
+                        if (result_cd == 200) {
+                          // var msg = "음성인식 결과 : " + extra.voicetext;
+                          // alert(msg);
+                          var script_list = <%- JSON.stringify(script_list) %>
+                          for (var i = 0; i < script_list.length; i++) {
+                            if (script_list[i].sentence.replace(/\s/g, "")  == extra.voicetext.replace(/\s/g, "") ) {
+                              window.location.href = '/gallery/detail/' + script_list[i].id;
+                              break;
+                            } else if (i == script_list.length - 1) {
+                              alert("일치하는 대사가 없습니다.");
+                            }
+                          }
+                        } else {
+                          alert("입력 시간이 초과하였습니다.")
+                        }
+                         });
                     } else {
                      //extra.reason 에 voice 오류 전달.
+                     alert("giggenie init error!");
                  };
                 });
     	    };
@@ -51,7 +69,18 @@
     </div>
 
     <div class="main">
-     <h1 class="text">민욱 & 영우 렛츠기릿!</h1><br><br>
+     <h1 class="text">랭킹을 보고싶은 장면을 골라주세요.</h1>
+     <div class="row">
+        <% for (var i=0; i< script_list.length; i++) { %>
+          <div class="column" onclick="location.href='/gallery/detail/<%=script_list[i].id%>'">
+   		       <h2 class="text"><%=i+1%>. <%=script_list[i].movieName%> - <%=script_list[i].actorName%></h2>
+   		       <h2 class="text">"<%= script_list[i].sentence %>"</h2>
+   		       <div class="image-wrapper">
+   			          <img src="/images/<%=script_list[i].image%>">
+   		       </div>
+   	     </div>
+        <% } %>
+      </div>
    </div>
  </body>
 </html>
