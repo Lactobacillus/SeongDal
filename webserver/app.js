@@ -68,8 +68,8 @@ app.post('/practice_mimic/:id', function (req, res) {
 
   var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'),{samplingRate: '8000'});
 //    channels: '숫자 1 또는 2'});
-  writer.write(req.body)
-  writer.end()
+  writer.write(req.body);
+  writer.end();
   // TODO: save req.body as wav file
 
   // TODO: execute python server in order to get the score
@@ -89,10 +89,13 @@ app.post('/practice_mimic/:id', function (req, res) {
 
   request.get(req_url,options,function(err,res,body){
    if(err) {
+     console.log("request get error!");
      console.log(err);
+     return res.json({success: false, message: err});
    }
    if(res.statusCode !== 200 ) {
      console.log("status code not 200!");
+     return res.json({success: false, message: err});
    }
    console.log("res: " + JSON.stringify(res));
    console.log("body: "+ body);
@@ -100,6 +103,13 @@ app.post('/practice_mimic/:id', function (req, res) {
 
    console.log(contact.pitch);
    console.log(contact.length);
+   //contact.pitch
+   //contact.length
+   //contact.envelope
+   //contact.score
+
+
+   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
   });
   //TODO Do something with response
 
@@ -111,14 +121,6 @@ app.post('/practice_mimic/:id', function (req, res) {
       // 0: good, 1: bad
       // score
       // itself
-
-  // });
-  res.redirect('mimic/practice_mimic/'+s_id);
-});
-
-app.get('/mimic_score/:id', function (req, res) {
-  var s_id = req.params.id;
-  res.render('mimic/mimic_score', {script: script_list[s_id]});
 });
 
 app.get('/dubbing', function (req, res) {
