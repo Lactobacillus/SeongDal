@@ -68,22 +68,32 @@ app.post('/practice_mimic/:id', function (req, res) {
 
   var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename), req.body);
 
-
   // TODO: save req.body as wav file
 
   // TODO: execute python server in order to get the score
 
   // TODO: recieve score from python server
-  //var options = {};
-  //request.get('http://localhost:808/score?fn=raewon2&origin=raewon_original',options,function(err,res,body){
-//   if(err) {
-//     console.log(err);
-//   }
-//   if(res.statusCode !== 200 ) {
-//     console.log("status code not 200!");
-//   }
-//   console.log("res: " + JSON.stringify(res));
-//   console.log("body: "+body);
+  var options = {};
+  if (id == 0) {
+
+    // ain
+    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
+
+  }else if (id == 1){
+
+    // raewon
+    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
+  }
+
+  request.get(req_url,options,function(err,res,body){
+   if(err) {
+     console.log(err);
+   }
+   if(res.statusCode !== 200 ) {
+     console.log("status code not 200!");
+   }
+   console.log("res: " + JSON.stringify(res));
+   console.log("body: "+ body);
 
   //TODO Do something with response
 
