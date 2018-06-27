@@ -47,6 +47,20 @@
                         alert("111");
                         if(result_cd===200) {
                           alert("end!");
+
+                          // 메모리로 받는 경우
+                          // 200 인 경우에 지금의 년월일시분초로 파일명을 정함
+                          // ex) 20180628023314.wav
+                          // 그 다음 이 정보를 ajax 로 127.0.0.1:808/ajax 로 POST
+                          // {'audio' : inBuffer, 'mimic' : 0, 'fileName' : filename}
+
+                          // 파이썬 서버는 이를 받아서 오디오를 주어진 파일명으로 저장
+                          // 그러면 이제 점수를 계산하고 점수 페이지로 넘어갈 수 있음
+
+                          // 여기서 127.0.0.1:8080/mimic_score 로 GET
+                          // GET 파라미터는 origin 과 파일명(확장자제외) - 파이썬서버와 같음
+                          // 그러면 mimic_score.html 은 다시 파이썬 서버에 똑같이 요청해서 점수 받아오고 res.render
+
                         } else console.log('recording fail:'+result_cd);
                       }
 
