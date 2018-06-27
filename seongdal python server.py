@@ -18,6 +18,10 @@ app = Flask(__name__)
 recordPath = os.path.join('/', 'seongdalAudio', 'recorded')
 originPath = os.path.join('/', 'seongdalAudio', 'original')
 
+def slowAudio(y):
+
+    return librosa.effects.time_stretch(y, 0.1822)
+
 #input : y_target, sr_target, y_input, sr_input
 def analyzePitch(y_t, sr_t, y_i, sr_i):
 
@@ -132,6 +136,12 @@ def getAudioCutByOnset(file):
 
     pre_emphasis = 0.97
     wave, samplingRate = librosa.load(file,offset= 0.025)
+
+
+    # slow audio
+    wave = slowAudio(wave)
+
+
     print('file : ', file, ' samplingRate : ', samplingRate)
     emphasized_signal = np.append(wave[0], wave[1:] - pre_emphasis * wave[:-1])
     wave = librosa.util.normalize(emphasized_signal)
