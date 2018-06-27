@@ -100,6 +100,8 @@ app.post('/practice_mimic/:id', function (req, res) {
    var length_code = body.length
    var env_code = body.envelope
    var score = body.score
+   console.log(pitch_code)
+   console.log(score)
   });
   //TODO Do something with response
 
