@@ -108,7 +108,7 @@ app.post('/practice_mimic/:id', function (req, res) {
    //contact.score
 
 
-   res.redirect('mimic/mimic_score');
+   res.render('mimic/mimic_score', {script: script[s_id]});
    }
   });
   //TODO Do something with response
