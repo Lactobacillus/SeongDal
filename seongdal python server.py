@@ -13,10 +13,23 @@ import IPython.display as ipd
 from fastdtw import fastdtw
 from scipy.interpolate import interp2d
 from flask import Flask, request, jsonify
+from pydub import AudioSegment
 
 app = Flask(__name__)
 recordPath = os.path.join('/', 'seongdalAudio', 'recorded')
 originPath = os.path.join('/', 'seongdalAudio', 'original')
+
+def speed_change(sound, speed=1.0):
+    # Manually override the frame_rate. This tells the computer how many
+    # samples to play per second
+    sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
+        "frame_rate": int(sound.frame_rate * speed)
+    })
+
+    # convert the sound with altered frame rate to a standard frame rate
+    # so that regular playback programs will work right. They often only
+    # know how to play audio at standard frame rate (like 44.1k)
+    return sound_with_altered_frame_rate.set_frame_rate(sound.frame_rate)
 
 def slowAudio(y):
 
@@ -259,17 +272,21 @@ def testSync(target_audio_path, input_audio_path):
 
     result = dict()
 
+    sound = AudioSegment.from_file(input_audio_path)
+    slow_sound = speed_change(sound,0.184)
+    new_path = input_audio_path[:-4]+"_slow.wav"
+
+    slow_sound.export(new_path,format="wav")
+
     #Print
     print("Target file: " + target_audio_path)
-    print("Input file : " + input_audio_path)
+    print("Input file : " + new_path)
     result['target'] = target_audio_path
-    result['input'] = input_audio_path
+    result['input'] = new_path
 
     # Cut By Onset
-    print(input_audio_path)
-    print(input_audio_path[:-4] + '_slow.wav')
     start_t, end_t, y_t, sr_t = getAudioCutByOnset(target_audio_path)
-    start, end, y, sr = getAudioCutByOnset(input_audio_path)
+    start, end, y, sr = getAudioCutByOnset(new_path)
 
     # slow audio
     y = slowAudio(y)
