@@ -96,7 +96,7 @@ app.post('/practice_mimic/:id', function (req, res) {
    if(res.statusCode !== 200 ) {
      console.log("status code not 200!");
      return res.json({success: false, message: err});
-   }
+   } else {
    console.log("res: " + JSON.stringify(result));
    console.log("body: "+ body);
    var contact = JSON.parse(body)
@@ -110,6 +110,7 @@ app.post('/practice_mimic/:id', function (req, res) {
 
 
    res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
+   }
   });
   //TODO Do something with response
 
