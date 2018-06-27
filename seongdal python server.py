@@ -398,6 +398,29 @@ def getScore():
 
 		return jsonify(resultDict)
 
+@app.route('/ajax', methods = ['POST'])
+def receiveAudioBuff():
+
+	if request.method == 'POST':
+
+		try:
+
+			audioBuff = request.form['audio']
+			mimic = request.form['mimic']
+			fileName = request.form['filename'] + '.wav'
+
+			with open(os.path.join(recordPath, fileName), 'wb') as fs:
+
+				fs.write(audioBuff)
+
+			resultDict = {'status' : 1}
+
+		except:
+
+			resultDict = {'status' : 0}
+
+		return jsonify(resultDict)
+
 if __name__ == '__main__':
 
 	app.run(host = '127.0.0.1', port = 808)
