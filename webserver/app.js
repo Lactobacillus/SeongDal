@@ -108,19 +108,19 @@ app.post('/practice_mimic/:id', function (req, res) {
    //contact.score
 
 
-   res.render('mimic/mimic_score', {script: script[s_id]});
+   res.render('mimic/mimic_score', {script: script_list[s_id]});
    }
   });
   //TODO Do something with response
 
-      // Pitch Code
-      // 0: Good, 1: Low, 2:High
-      // Length Code
-      // 0: perfect, 1:fast, 2:slow
-      // Env code
-      // 0: good, 1: bad
-      // score
-      // itself
+  // Pitch Code
+  // 0: Good, 1: Low, 2:High
+  // Length Code
+  // 0: perfect, 1:fast, 2:slow
+  // Env code
+  // 0: good, 1: bad
+  // score
+  // itself
 });
 
 app.get('/dubbing', function (req, res) {
