@@ -66,9 +66,8 @@ app.post('/practice_mimic/:id', function (req, res) {
   var d = new Date();
   var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
 
-  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'),
-    samplingRate: '숫자 예를 들어 16000',
-    channels: '숫자 1 또는 2'});
+  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'),{samplingRate: '8000'});
+//    channels: '숫자 1 또는 2'});
   writer.write(req.body)
   writer.end()
   // TODO: save req.body as wav file
