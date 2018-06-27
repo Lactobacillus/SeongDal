@@ -64,9 +64,9 @@ app.post('/practice_mimic/:id', function (req, res) {
   var s_id = req.params.id;
   console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
   var d = new Date();
-  var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"") + ".wav";
+  var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
 
-  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename), req.body);
+  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'), req.body);
 
   // TODO: save req.body as wav file
 
