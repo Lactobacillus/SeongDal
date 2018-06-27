@@ -2,8 +2,8 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
-var app = express();
 var wav = require('wav');
+var app = express();
 
 app.set("view engine", 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -66,7 +66,7 @@ app.post('/practice_mimic/:id', function (req, res) {
   var d = new Date();
   var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"") + ".wav";
 
-  var writer = new wav.FileWriter(filename, req.body); //filenme , data
+  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename), req.body);
 
 
   // TODO: save req.body as wav file
@@ -74,17 +74,17 @@ app.post('/practice_mimic/:id', function (req, res) {
   // TODO: execute python server in order to get the score
 
   // TODO: recieve score from python server
-  // var options = {};
-  // request.get('http://localhost:808/score?fn=raewon2&origin=raewon_original',options,function(err,res,body){
-  //   if(err) {
-  //     console.log(err);
-  //   }
-  //   if(res.statusCode !== 200 ) {
-  //     console.log("status code not 200!");
-  //   }
-  //   console.log("res: " + JSON.stringify(res));
-  //   console.log("body: "+body);
-  //
+  //var options = {};
+  //request.get('http://localhost:808/score?fn=raewon2&origin=raewon_original',options,function(err,res,body){
+//   if(err) {
+//     console.log(err);
+//   }
+//   if(res.statusCode !== 200 ) {
+//     console.log("status code not 200!");
+//   }
+//   console.log("res: " + JSON.stringify(res));
+//   console.log("body: "+body);
+
   //TODO Do something with response
 
       // Pitch Code
