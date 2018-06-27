@@ -289,8 +289,8 @@ def testSync(target_audio_path, input_audio_path):
     start, end, y, sr = getAudioCutByOnset(new_path)
 
     # slow audio
-    y = slowAudio(y)
-    librosa.output.write_wav(input_audio_path[:-4] + '_slow.wav', y, sr)
+#    y = slowAudio(y)
+#    librosa.output.write_wav(input_audio_path[:-4] + '_slow.wav', y, sr)
 
     result['start_t'] = start_t
     result['end_t'] = end_t
