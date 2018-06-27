@@ -136,12 +136,6 @@ def getAudioCutByOnset(file):
 
     pre_emphasis = 0.97
     wave, samplingRate = librosa.load(file,offset= 0.025)
-
-
-    # slow audio
-    wave = slowAudio(wave)
-    librosa.output.write_wav(file[:-4] + '_slow.wav', samplingRate)
-
     print('file : ', file, ' samplingRate : ', samplingRate)
     emphasized_signal = np.append(wave[0], wave[1:] - pre_emphasis * wave[:-1])
     wave = librosa.util.normalize(emphasized_signal)
@@ -274,6 +268,13 @@ def testSync(target_audio_path, input_audio_path):
     # Cut By Onset
     start_t, end_t, y_t, sr_t = getAudioCutByOnset(target_audio_path)
     start, end, y, sr = getAudioCutByOnset(input_audio_path)
+
+    # slow audio
+    y = slowAudio(y)
+    librosa.output.write_wav(input_audio_path[:-4] + '_slow.wav', y, samplingRate)
+
+
+
     result['start_t'] = start_t
     result['end_t'] = end_t
     result['y_t'] = y_t
