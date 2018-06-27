@@ -87,17 +87,17 @@ app.post('/practice_mimic/:id', function (req, res) {
     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
   }
 
-  request.get(req_url,options,function(err,res,body){
+  request.get(req_url,options,function(err,result,body){
    if(err) {
      console.log("request get error!");
      console.log(err);
-     return res.json({success: false, message: err});
+     return result.json({success: false, message: err});
    }
    if(res.statusCode !== 200 ) {
      console.log("status code not 200!");
-     return res.json({success: false, message: err});
+     return result.json({success: false, message: err});
    }
-   console.log("res: " + JSON.stringify(res));
+   console.log("res: " + JSON.stringify(result));
    console.log("body: "+ body);
    var contact = JSON.parse(body)
 
