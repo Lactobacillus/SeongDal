@@ -92,8 +92,7 @@ app.post('/practice_mimic/:id', function (req, res) {
      console.log("request get error!");
      console.log(err);
      return res.json({success: false, message: err});
-   }
-   if(res.statusCode !== 200 ) {
+   } else if(res.statusCode !== 200 ) {
      console.log("status code not 200!");
      return res.json({success: false, message: err});
    } else {
