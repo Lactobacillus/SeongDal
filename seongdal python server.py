@@ -132,6 +132,7 @@ def getAudioCutByOnset(file):
 
     pre_emphasis = 0.97
     wave, samplingRate = librosa.load(file,offset= 0.025)
+    print('file : ', file, ' samplingRate : ', samplingRate)
     emphasized_signal = np.append(wave[0], wave[1:] - pre_emphasis * wave[:-1])
     wave = librosa.util.normalize(emphasized_signal)
 
