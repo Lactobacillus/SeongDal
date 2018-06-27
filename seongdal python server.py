@@ -140,7 +140,7 @@ def getAudioCutByOnset(file):
 
     # slow audio
     wave = slowAudio(wave)
-
+    librosa.output.write_wav(file[:-4] + '_slow.wav', samplingRate)
 
     print('file : ', file, ' samplingRate : ', samplingRate)
     emphasized_signal = np.append(wave[0], wave[1:] - pre_emphasis * wave[:-1])
