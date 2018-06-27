@@ -39,7 +39,7 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order = 5):
 
 def denoise(y, lowcut, highcut, sr):
 
-	y = butter_bandpass_filter(y, lowcut, highcut, sr, order = 10)
+	y = butter_bandpass_filter(y, lowcut, highcut, sr, order = 7)
 
 	return y
 
