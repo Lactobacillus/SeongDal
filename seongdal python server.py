@@ -320,8 +320,8 @@ def testSync(target_audio_path, input_audio_path):
     print(result_mfcc)
 
     #regression
-    result['score'] = np.clip(-16 * np.log(result_mfcc) + 110, 0, 100)
-
+    result['score'] = np.clip(-16 * np.log(result_mfcc) + 105, 0, 100)
+    print(result['score'])
     return result
 
 @app.route('/', methods = ['GET'])

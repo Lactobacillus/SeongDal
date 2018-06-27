@@ -96,12 +96,10 @@ app.post('/practice_mimic/:id', function (req, res) {
    }
    console.log("res: " + JSON.stringify(res));
    console.log("body: "+ body);
-   var pitch_code = body.pitch;
-   var length_code = body.length;
-   var env_code = body.envelope;
-   var score = body.score;
-   console.log(pitch_code);
-   console.log(score);
+   var contact = JSON.parse(body)
+
+   console.log(contact.pitch);
+   console.log(contact.length);
   });
   //TODO Do something with response
 
