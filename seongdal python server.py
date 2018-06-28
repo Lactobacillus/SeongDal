@@ -21,20 +21,20 @@ recordPath = os.path.join('/', 'seongdalAudio', 'recorded')
 originPath = os.path.join('/', 'seongdalAudio', 'original')
 
 def butter_bandpass(lowcut, highcut, fs, order = 5):
-	
+
 	nyq = 0.5 * fs
 	low = lowcut / nyq
 	high = highcut / nyq
 	b, a = butter(order, [low, high], btype='band')
-	
+
 	return b, a
 
 
 def butter_bandpass_filter(data, lowcut, highcut, fs, order = 5):
-	
+
 	b, a = butter_bandpass(lowcut, highcut, fs, order=order)
 	y = lfilter(b, a, data)
-	
+
 	return y
 
 def denoise(y, lowcut, highcut, sr):
@@ -423,4 +423,4 @@ def receiveAudioBuff():
 
 if __name__ == '__main__':
 
-	app.run(host = '127.0.0.1', port = 808)
+	app.run(host = '0.0.0.0', port = 808)
