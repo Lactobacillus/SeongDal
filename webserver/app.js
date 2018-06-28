@@ -65,12 +65,12 @@ app.get('/mimic_score/:id', function (req, res) {
   res.render('mimic/mimic_score', {script: script_list[s_id]});
 });
 
-app.post('/practice_mimic/:id', function (req, res) {
-  var s_id = req.params.id;
-  res.render('mimic/mimic_score', {script: script_list[s_id]});
-});
 // app.post('/practice_mimic/:id', function (req, res) {
 //   var s_id = req.params.id;
+//   res.render('mimic/mimic_score', {script: script_list[s_id]});
+// });
+app.post('/practice_mimic/:id', function (req, res) {
+  var s_id = req.params.id;
 //   console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
 //   var d = new Date();
 //   var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
@@ -95,39 +95,40 @@ app.post('/practice_mimic/:id', function (req, res) {
 //     // raewon
 //     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
 //   }
-//
-//   request.get(req_url,options,function(err,result,body){
-//    if(err) {
-//      console.log("request get error!");
-//      console.log(err);
-//      return res.json({success: false, message: err});
-//    } else if(res.statusCode !== 200 ) {
-//      console.log("status code not 200!");
-//      return res.json({success: false, message: err});
-//    } else {
-//      console.log("res: " + JSON.stringify(result));
-//      console.log("body: "+ body);
-//      var contact = JSON.parse(body)
-//
-//      console.log(contact.pitch);
-//      console.log(contact.length);
-//      //contact.pitch
-//      //contact.length
-//      //contact.envelope
-//      //contact.score
-//    }
-//   });
-//   //TODO Do something with response
-//   return res.render('mimic/mimic_score', {script: script_list[s_id]});
-//   // Pitch Code
-//   // 0: Good, 1: Low, 2:High
-//   // Length Code
-//   // 0: perfect, 1:fast, 2:slow
-//   // Env code
-//   // 0: good, 1: bad
-//   // score
-//   // itself
-// });
+
+  // request.get(req_url,options,function(err,result,body){
+  //  if(err) {
+  //    console.log("request get error!");
+  //    console.log(err);
+  //    return res.json({success: false, message: err});
+  //  } else if(res.statusCode !== 200 ) {
+  //    console.log("status code not 200!");
+  //    return res.json({success: false, message: err});
+  //  } else {
+  //    console.log("res: " + JSON.stringify(result));
+  //    console.log("body: "+ body);
+  //    var contact = JSON.parse(body)
+  //
+  //    console.log(contact.pitch);
+  //    console.log(contact.length);
+  //    //contact.pitch
+  //    //contact.length
+  //    //contact.envelope
+  //    //contact.score
+  //  }
+  // });
+  //TODO Do something with response
+  //res.render('mimic/mimic_score', {script: script_list[s_id]});
+  res.send('hello world!');
+  // Pitch Code
+  // 0: Good, 1: Low, 2:High
+  // Length Code
+  // 0: perfect, 1:fast, 2:slow
+  // Env code
+  // 0: good, 1: bad
+  // score
+  // itself
+});
 
 app.get('/dubbing', function (req, res) {
   res.render('dubbing/dubbing', {script_list: script_list});

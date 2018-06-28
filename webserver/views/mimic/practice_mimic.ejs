@@ -44,7 +44,7 @@
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
                         console.log('mimic_record_audio')
-                        alert("111");
+                        alert(result_cd);
                         if(result_cd===200) {
                           alert("end!");
                         } else console.log('recording fail:'+result_cd);
@@ -112,10 +112,10 @@
       <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
         <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
         <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
-        <form action="/practice_mimic/<%=script.id%>" method="post">
+        <!-- <form action="/practice_mimic/<%=script.id%>" method="post">
           <button type="submit">result</button>
         </form>
-        <a href="/mimic_score/<%=script.id%>">result</a>
+        <a href="/mimic_score/<%=script.id%>">result</a> -->
       </div>
     </div>
  </body>
