@@ -41,6 +41,25 @@
                           }
                       }, 1000);
 
+                      gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
+                        console.log('mimic_record_start')
+                        if (result_cd===200) {
+                          alert("start!");
+                          console.log(result_cd);
+                        } else console.log('fail:'+result_cd);
+                      });
+
+
+
+                      gigagenie.media.stopRecordAudio(null,function(result_cd,result_msg,extra){
+                      console.log(result_cd);
+                      });
+
+
+
+
+
+
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
                         console.log('mimic_record_audio')
@@ -93,13 +112,6 @@
                         } else console.log('recording fail:'+result_cd);
                       }
 
-                      gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
-                        console.log('mimic_record_start')
-                        if (result_cd===200) {
-                          alert("start!");
-                          console.log(result_cd);
-                        } else console.log('fail:'+result_cd);
-                      });
                     } else {
 
                     };
