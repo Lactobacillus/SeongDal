@@ -54,9 +54,9 @@
                       });
 
                       setTimeout(function(){
-                        alert('http://211.252.86.136:8080/score_mimic/<%=script.id%>/' + filename);
+                        alert('http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename);
                         //window.location.href = 'http://211.252.86.136:8080/score_mimic/score_mimic<%=script.id%>/' + filename;
-                        window.location.href = 'http://211.252.86.136:8080/gallery';
+                        window.location.href = 'http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename;
                       }, 8000);
 
                       var audioBuffer=null;
@@ -124,10 +124,10 @@
       <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
         <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
         <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
-        <!-- <form action="/practice_mimic/<%=script.id%>/1234" method="post">
+        <form action="/practice_mimic/<%=script.id%>/1234" method="post">
           <button type="submit">result</button>
         </form>
-        <a href="/mimic_score/<%=script.id%>">result</a> -->
+        <a href="/mimic_score/<%=script.id%>">result</a>
       </div>
     </div>
  </body>

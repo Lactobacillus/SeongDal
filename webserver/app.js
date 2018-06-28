@@ -73,7 +73,7 @@ app.get('/mimic_score/:id', function (req, res) {
 //   res.render('mimic/mimic_score', {script: script_list[s_id]});
 // });
 
-app.get('/score_mimic/:id:/filename', function (req, res){
+app.get('/mimic_score/:id:/filename', function (req, res){
 
   var s_id = req.params.id;
   var filename = req.params.filename;
