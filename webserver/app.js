@@ -65,16 +65,21 @@ app.get('/mimic_score/:id', function (req, res) {
   res.render('mimic/mimic_score', {script: script_list[s_id]});
 });
 
-// app.post('/practice_mimic/:id', function (req, res) {
+// app.post('/practice_mimic/:id/:filename', function (req, res) {
 //   var s_id = req.params.id;
+//   var filename = req.params.filename;
+//   console.log(s_id);
+//   console.log(filename);
 //   res.render('mimic/mimic_score', {script: script_list[s_id]});
 // });
-app.post('/practice_mimic/:id', function (req, res) {
+
+app.post('/practice_mimic/:id/:filename', function (req, res) {
   var s_id = req.params.id;
-  console.log('asdfsadf');
+  var filename = req.params.filename;
+
   console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
-  var d = new Date();
-  var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
+  // var d = new Date();
+  // var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
 
   var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'),{samplingRate: '8000'});
 //    channels: '숫자 1 또는 2'});
@@ -119,7 +124,6 @@ app.post('/practice_mimic/:id', function (req, res) {
   }
  });
   //TODO Do something with response
-  console.log("sdafsdafdafasdff");
 res.render('mimic/mimic_score', {script: script_list[s_id]});
 //  res.send('hello world!');
   // Pitch Code
