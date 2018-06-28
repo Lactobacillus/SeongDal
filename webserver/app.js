@@ -73,7 +73,7 @@ app.get('/mimic_score/:id', function (req, res) {
 //   res.render('mimic/mimic_score', {script: script_list[s_id]});
 // });
 
-app.get('/mimic_score/:id:/filename', function (req, res){
+app.get('/mimic_score/:id:/:filename', function (req, res){
 
   var s_id = req.params.id;
   var filename = req.params.filename;
@@ -129,47 +129,12 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
 //    channels: '숫자 1 또는 2'});
   writer.write(req.body);
   writer.end();
-//   // TODO: save req.body as wav file
-//
-//   // TODO: execute python server in order to get the score
-//
-//   // TODO: recieve score from python server
-   var options = {};
-   if (s_id == 0) {
-// //
- //     // ain
-     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
- //
-   }else if (s_id == 1){
- //
- //     // raewon
-     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
-   }
-//
-  request.get(req_url,options,function(err,result,body){
-   if(err) {
-     console.log("request get error!");
-     console.log(err);
-     return res.json({success: false, message: err});
-   } else if(res.statusCode !== 200 ) {
-     console.log("status code not 200!");
-     return res.json({success: false, message: err});
-   } else {
-     console.log("res: " + JSON.stringify(result));
-     console.log("body: "+ body);
-     var contact = JSON.parse(body)
 
-     console.log(contact.pitch);
-     console.log(contact.length);
-     //contact.pitch
-     //contact.length
-     //contact.envelope
-     //contact.score
-   }
-  });
-  //TODO Do something with response
-
-  res.redirect(200, 'http://localhost.8080');
+  var contact = {};
+  contact.length = 0;
+  contact.pitch = 0;
+  contact.env = 0;
+  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
 
 // res.render('mimic/mimic_score', {script: script_list[s_id]});
 //  res.send('hello world!');
