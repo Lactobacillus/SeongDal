@@ -384,7 +384,7 @@ def getScore():
 
 			rPath = os.path.join(recordPath, recorded + '.wav')
 			oPath = os.path.join(originPath, original + '.wav')
-
+			
 			result = testSync(oPath, rPath)
 			resultDict = {'status' : 1,
 						'pitch' : int(result['pitch_code']),
@@ -392,8 +392,9 @@ def getScore():
 						'envelope' : int(result['env_code']),
 						'score' : int(result['score'])}
 
-		except:
+		except Exception e:
 
+			print(e)
 			resultDict = {'status' : 0}
 
 		return jsonify(resultDict)
