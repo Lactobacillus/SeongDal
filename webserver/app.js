@@ -115,7 +115,7 @@ app.get('/score_mimic/:id:/filename', function (req, res){
      }
   });
 
-  res.render('mimic/mimic_score', {script: script_list[s_id]});
+  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
 
 });
 
