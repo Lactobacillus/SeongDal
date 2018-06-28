@@ -46,7 +46,13 @@
 
 
 
-
+                      gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
+                        console.log('mimic_record_start')
+                        if (result_cd===200) {
+                          alert("start!");
+                          console.log(result_cd);
+                        } else console.log('fail:'+result_cd);
+                      });
 
 
 
@@ -102,19 +108,6 @@
                         } else console.log('recording fail:'+result_cd);
                       }
 
-
-                      gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
-                        console.log('mimic_record_start')
-                        if (result_cd===200) {
-                          alert("start!");
-                          console.log(result_cd);
-                        } else console.log('fail:'+result_cd);
-                      });
-
-                      gigagenie.media.stopRecordAudio(null,function(result_cd,result_msg,extra){
-                        alert("stop!");
-                        console.log(result_cd);
-                      });
 
 
 

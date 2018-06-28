@@ -58,6 +58,7 @@
 
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
                         if (result_cd===200) {
+                          alert("start!");
                           console.log(result_cd);
                           console.log('mimic_memory_record_audio')
                         } else console.log('fail:'+result_cd);
