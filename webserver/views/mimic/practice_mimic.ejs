@@ -49,11 +49,11 @@
                         } else console.log('fail:'+result_cd);
                       });
 
-
-
                       gigagenie.media.stopRecordAudio(null,function(result_cd,result_msg,extra){
-                      console.log(result_cd);
+                        console.log(result_cd);
                       });
+
+
 
 
 
@@ -90,7 +90,7 @@
                                     'mimic' : 이건 어떻게 넣어야 하지,
                                     'filename' : filename},
                             success : function(res){
-                              
+
                               // status == 1 이면 성공, 0 이면 실패
                               // console.log(res.status)
 
@@ -111,6 +111,8 @@
 
                         } else console.log('recording fail:'+result_cd);
                       }
+
+
 
                     } else {
 
