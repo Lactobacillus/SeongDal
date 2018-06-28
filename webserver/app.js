@@ -73,13 +73,57 @@ app.get('/mimic_score/:id', function (req, res) {
 //   res.render('mimic/mimic_score', {script: script_list[s_id]});
 // });
 
+app.get('/score_mimic/:id:/filename', function (req, res){
+
+  var s_id = req.params.id;
+  var filename = req.params.filename;
+
+  console.log(s_id);
+  console.log(filename);
+
+  if (s_id == 0){
+
+    // ain
+    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
+  }
+  else if (s_id == 0){
+
+    // raewon
+    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
+  }
+
+  var options = {};
+  request.get(req_url,options,function(err,result,body){
+     if(err) {
+       console.log("request get error!");
+       console.log(err);
+       return res.json({success: false, message: err});
+     } else if(res.statusCode !== 200 ) {
+       console.log("status code not 200!");
+       return res.json({success: false, message: err});
+     } else {
+       console.log("res: " + JSON.stringify(result));
+       console.log("body: "+ body);
+       var contact = JSON.parse(body)
+
+       console.log(contact.pitch);
+       console.log(contact.length);
+       //contact.pitch
+       //contact.length
+       //contact.envelope
+       //contact.score
+     }
+  });
+
+  res.render('mimic/mimic_score', {script: script_list[s_id]});
+
+});
+
 app.post('/practice_mimic/:id/:filename', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
 
   console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
-  // var d = new Date();
-  // var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
 
   var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'),{samplingRate: '8000'});
 //    channels: '숫자 1 또는 2'});
@@ -90,41 +134,44 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
 //   // TODO: execute python server in order to get the score
 //
 //   // TODO: recieve score from python server
-  var options = {};
-  if (s_id == 0) {
+   var options = {};
+   if (s_id == 0) {
+// //
+ //     // ain
+     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
+ //
+   }else if (s_id == 1){
+ //
+ //     // raewon
+     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
+   }
 //
-//     // ain
-    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
-//
-  }else if (s_id == 1){
-//
-//     // raewon
-    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
-  }
+  request.get(req_url,options,function(err,result,body){
+   if(err) {
+     console.log("request get error!");
+     console.log(err);
+     return res.json({success: false, message: err});
+   } else if(res.statusCode !== 200 ) {
+     console.log("status code not 200!");
+     return res.json({success: false, message: err});
+   } else {
+     console.log("res: " + JSON.stringify(result));
+     console.log("body: "+ body);
+     var contact = JSON.parse(body)
 
- request.get(req_url,options,function(err,result,body){
-  if(err) {
-    console.log("request get error!");
-    console.log(err);
-    return res.json({success: false, message: err});
-  } else if(res.statusCode !== 200 ) {
-    console.log("status code not 200!");
-    return res.json({success: false, message: err});
-  } else {
-    console.log("res: " + JSON.stringify(result));
-    console.log("body: "+ body);
-    var contact = JSON.parse(body)
-
-    console.log(contact.pitch);
-    console.log(contact.length);
-    //contact.pitch
-    //contact.length
-    //contact.envelope
-    //contact.score
-  }
- });
+     console.log(contact.pitch);
+     console.log(contact.length);
+     //contact.pitch
+     //contact.length
+     //contact.envelope
+     //contact.score
+   }
+  });
   //TODO Do something with response
-res.render('mimic/mimic_score', {script: script_list[s_id]});
+
+  res.redirect(200, 'http://localhost.8080');
+
+// res.render('mimic/mimic_score', {script: script_list[s_id]});
 //  res.send('hello world!');
   // Pitch Code
   // 0: Good, 1: Low, 2:High
