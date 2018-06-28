@@ -121,10 +121,12 @@ app.get('/mimic_score/:id/:filename', function (req, res){
        //contact.length
        //contact.envelope
        //contact.score
+
+       res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
      }
   });
 
-  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
+
 
 });
 
