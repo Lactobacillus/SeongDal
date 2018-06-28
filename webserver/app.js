@@ -61,8 +61,13 @@ app.get('/practice_mimic/:id', function (req, res) {
 });
 
 app.get('/mimic_score/:id', function (req, res) {
+
   var s_id = req.params.id;
-  res.render('mimic/mimic_score', {script: script_list[s_id]});
+  var contact = {};
+  contact.length = 0;
+  contact.pitch = 0;
+  contact.env = 0;
+  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
 });
 
 // app.post('/practice_mimic/:id/:filename', function (req, res) {
@@ -73,7 +78,7 @@ app.get('/mimic_score/:id', function (req, res) {
 //   res.render('mimic/mimic_score', {script: script_list[s_id]});
 // });
 
-app.get('/mimic_score/:id:/:filename', function (req, res){
+app.get('/mimic_score/:id/:filename', function (req, res){
 
   var s_id = req.params.id;
   var filename = req.params.filename;
@@ -85,6 +90,7 @@ app.get('/mimic_score/:id:/:filename', function (req, res){
 
     // ain
     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
+
   }
   else if (s_id == 0){
 
@@ -93,12 +99,15 @@ app.get('/mimic_score/:id:/:filename', function (req, res){
   }
 
   var options = {};
+  console.log("req_url is " + req_url);
   request.get(req_url,options,function(err,result,body){
+    console.log("let's get it!");
      if(err) {
        console.log("request get error!");
        console.log(err);
        return res.json({success: false, message: err});
      } else if(res.statusCode !== 200 ) {
+       console.log(res.statusCode);
        console.log("status code not 200!");
        return res.json({success: false, message: err});
      } else {
