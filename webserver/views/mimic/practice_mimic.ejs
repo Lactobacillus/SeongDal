@@ -48,13 +48,13 @@
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
                         console.log('mimic_record_start')
                         if (result_cd===200) {
-                          alert("start!");
+                          //alert("start!");
                           console.log(result_cd);
                         } else console.log('fail:'+result_cd);
                       });
 
                       setTimeout(function(){
-                        alert('http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename);
+                        //alert('http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename);
                         //window.location.href = 'http://211.252.86.136:8080/score_mimic/score_mimic<%=script.id%>/' + filename;
                         window.location.href = 'http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename;
                         //window.location.href = 'http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + '20180627122133_slow';
@@ -63,9 +63,9 @@
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
                         console.log('mimic_record_audio')
-                        alert("침투 완료!");
+                        //alert("침투 완료!");
                         if(result_cd===200) {
-                          alert("end!");
+                          //alert("end!");
                         } else console.log('recording fail:'+result_cd);
                       }
 
