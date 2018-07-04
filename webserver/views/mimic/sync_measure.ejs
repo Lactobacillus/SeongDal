@@ -57,28 +57,57 @@
     };
     </script>
   </head>
-  <body style="background: rgb(151, 192, 183);" onload=init()>
+  <body onload=init()>
     <header>
       <% include ../partials/header %>
     </header>
-    <div class="sidenav">
-       <a href="/"><img src="/images/seongdal.png" style="width:100%;"></a>
-       <a href="/sync_measure" style="background: rgb(65,132,143);">성대모사 연습</a>
-       <a href="/dubbing">더빙</a>
-       <a href="/gallery">달인 갤러리</a>
+      <div class="sidebar">
+      <img id="logo" src='/images/ic_sungdal.png' />
+
+      <a href='/'>
+        <div class="menu" id="menu-home">
+          <span>홈</span>
+        </div>
+      </a>
+      <a href='/sync_measure'>
+        <div class="menu selected" id="menu-mimic">
+          <span>성대모사 연습</span>
+        </div>
+      </a>
+      <a href="/dubbing">
+        <div class="menu">
+          <span>더빙</span>
+        </div>
+      </a>
+      <a href="/gallery">
+        <div class="menu">
+          <span>달인 갤러리</span>
+        </div>
+      </a>
     </div>
 
     <div class="main">
-      <h1 class="text">성대모사할 장면을 골라주세요.</h1>
-      <div class="row">
+
+      <span class="other-title">
+        성대모사할 장면을 골라주세요.
+      </span>
+
+
+      <div class="main-scene">
         <% for (var i=0; i< script_list.length; i++) { %>
-          <div class="column" onclick="location.href='/detail/<%=script_list[i].id%>'">
-   		       <h2 class="text"><%=i+1%>. <%=script_list[i].movieName%> - <%=script_list[i].actorName%></h2>
-   		       <h2 class="text">"<%= script_list[i].sentence %>"</h2>
-   		       <div class="image-wrapper">
-   			          <img src="/images/<%=script_list[i].image%>">
-   		       </div>
-   	     </div>
+          <a href='/detail/<%=script_list[i].id%>'>
+            <div class="main-scene-item">
+              <img src='/images/<%=script_list[i].image%>' />
+              <span class="item-desc">
+                <span class="desc-title">
+                  "<%= script_list[i].sentence %>"
+                </span>
+                <span class="desc-mv">
+                  <%=script_list[i].actorName%>,'<%=script_list[i].movieName%>'
+                </span>
+              </span>
+            </div>
+          </a>
         <% } %>
       </div>
     </div>
