@@ -67,7 +67,7 @@
                         options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
                         gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
                           window.location.href = '/';
-                        }
+                        });
                       }
                     }
 
@@ -78,9 +78,9 @@
                       });
                     } else {
                      //extra.reason 에 voice 오류 전달.
-                 };
+                 }
                 });
-    	    };
+    	    }
     	});
 
     }
@@ -121,6 +121,7 @@
     	right: 0;
     	width: 100%;
     	height: 100%;
+      background: black;
     }
   </style>
   <body onload=init()>
@@ -138,7 +139,7 @@
       <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
         <!-- <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1> -->
         <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
-        ######<!-- <a href="/mimic_score/<%=script.id%>">결과 보기</a> -->
+        <!-- <a href="/mimic_score/<%=script.id%>">결과 보기</a> -->
       </div>
     </div>
     <script>
