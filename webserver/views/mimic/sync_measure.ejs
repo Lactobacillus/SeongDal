@@ -38,7 +38,7 @@
                               options.ttstext = "일치하는 대사가 없습니다.";
                               gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
                                 window.location.href = '/';
-                              }
+                              });
                             }
                           }
                         } else {
@@ -47,7 +47,7 @@
                           options.ttstext = "입력 시간이 초과하였습니다.";
                           gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
                             window.location.href = '/';
-                          }
+                          });
                         }
                          });
                     } else {
@@ -57,7 +57,7 @@
                      options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
                      gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
                        window.location.href = '/';
-                     }
+                     });
                  };
                 });
     	    };
