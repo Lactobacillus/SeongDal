@@ -117,10 +117,8 @@ app.get('/mimic_score/:id/:filename', function (req, res){
 
        console.log(contact.pitch);
        console.log(contact.length);
-       //contact.pitch
-       //contact.length
-       //contact.envelope
-       //contact.score
+       console.log(contact.envelope);
+       console.log(contact.score);
 
        res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
      }
