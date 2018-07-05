@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
 var wav = require('wav');
+var fs = require('fs-extra');
 var app = express();
 
 app.set("view engine", 'ejs');
@@ -64,7 +65,7 @@ const script_list = [
 const voice_list = [
   {
     "userName": "안재우",
-    "recorded": "20180705114743_slow.wav",
+    "recorded": "20180705141328_slow.wav",
   },
 ];
 
@@ -102,16 +103,8 @@ app.get('/mimic_score/:id', function (req, res) {
   contact.length = 0;
   contact.pitch = 0;
   contact.envelope = 0;
-  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
+  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default.wav'});
 });
-
-// app.post('/practice_mimic/:id/:filename', function (req, res) {
-//   var s_id = req.params.id;
-//   var filename = req.params.filename;
-//   console.log(s_id);
-//   console.log(filename);
-//   res.render('mimic/mimic_score', {script: script_list[s_id]});
-// });
 
 app.get('/mimic_score/:id/:filename', function (req, res){
 
@@ -155,7 +148,7 @@ app.get('/mimic_score/:id/:filename', function (req, res){
        console.log(contact.envelope);
        console.log(contact.score);
 
-       res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
+       res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: filename});
      }
   });
 
@@ -178,10 +171,9 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
   contact.length = 0;
   contact.pitch = 0;
   contact.envelope = 0;
-  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
+  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: filename});
 
-// res.render('mimic/mimic_score', {script: script_list[s_id]});
-//  res.send('hello world!');
+  //  res.send('hello world!');
   // Pitch Code
   // 0: Good, 1: Low, 2:High
   // Length Code
@@ -192,8 +184,18 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
   // itself
 });
 
-app.get('/review', function (req, res) {
-  res.render('mimic/review', {voice: voice_list[0]});
+app.get('/save/:id/:filename', function (req, res) {
+  var s_id = req.params.id;
+  var filename = req.params.filename;
+
+  fs.copy('C:\\seongdalAudio\\recorded\\' + filename, path.join(__dirname,'public/voices', filename), function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Copied File!: ' + filename);
+    }
+    res.render('mimic/detail', {script: script_list[s_id]});
+  });
 });
 
 app.get('/dubbing', function (req, res) {
