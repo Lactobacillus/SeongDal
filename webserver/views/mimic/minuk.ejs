@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    (function($){
+        $.fn.extend({
+            numAnim: function(options) {
+                if ( ! this.length)
+                    return false;
+
+                this.defaults = {
+                    endAt: 2560,
+                    numClass: 'autogen-num',
+                    duration: 5,   // seconds
+                    interval: 90  // ms
+                };
+                var settings = $.extend({}, this.defaults, options);
+
+                var $num = $('<span/>', {
+                    'class': settings.numClass
+                });
+
+                return this.each(function() {
+                    var $this = $(this);
+
+                    // Wrap each number in a tag.
+                    var frag = document.createDocumentFragment(),
+                        numLen = settings.endAt.toString().length;
+                    for (x = 0; x < numLen; x++) {
+                        var rand_num = Math.floor( Math.random() * 10 );
+                        frag.appendChild( $num.clone().text(rand_num)[0] )
+                    }
+                    $this.empty().append(frag);
+
+                    var get_next_num = function(num) {
+                        ++num;
+                        if (num > 9) return 0;
+                        return num;
+                    };
+
+                    // Iterate each number.
+                    $this.find('.' + settings.numClass).each(function() {
+                        var $num = $(this),
+                            num = parseInt( $num.text() );
+
+                        var interval = setInterval( function() {
+                            num = get_next_num(num);
+                            $num.text(num);
+                        }, settings.interval);
+
+                        setTimeout( function() {
+                            clearInterval(interval);
+                        }, settings.duration * 1000 - settings.interval);
+                    });
+
+                    setTimeout( function() {
+                        $this.text( settings.endAt.toString() );
+                    }, settings.duration * 1000);
+                });
+            }
+        });
+    })(jQuery);
+
+
+    $(document).ready(function(){
+
+        $("#number").numAnim({
+            endAt: $("#number").attr("endAt"),//<%=score%>//$("#number").attr("endAt"),//$("number").text(),//asd
+            duration: 3
+        });
+    });
+
+    </script>
+
+    <script type="text/javascript" src="http://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
+    <script type="text/javascript">
+    var options={};
+    // 서비스 초기화
+    function init(){
+        options={};
+    	options.keytype="GBOXDEVM"; // 개발(GBOXDEVM) 또는 상용(GBOXCOMM) 키 종류 입력
+    	options.apikey="RTUwMDE4OTN8R0JPWERFVk18MTUyODY5MTc4MzQ4Ng=="; // 개발자 포털에서 키를 발급받아 입력
+
+    	gigagenie.init(options,function(result_cd,result_msg,extra){
+            if(result_cd===200){
+                //함수 호출 및 개발 진행
+
+                //callback 방식
+                var options={};
+                options.ttstext="달인 갤러리입니다. 보고싶은 사용자를 말하십시오. 이 기능은 현재 구현중입니다.";
+                gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
+                    if(result_cd===200){
+                      //do next action
+                      options = {};
+		                  // options.voicemsg = "정답을 말씀해주세요.";
+		                  gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
+                        if (result_cd == 200) {
+                          // var msg = "음성인식 결과 : " + extra.voicetext;
+                          // alert(msg);
+
+                        } else {
+                          //alert("입력 시간이 초과하였습니다.")
+                          var options = {};
+                          options.ttstext = "입력 시간이 초과하였습니다.";
+                          gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+                            window.location.href = '/';
+                          });
+                        }
+                         });
+                    } else {
+                     //extra.reason 에 voice 오류 전달.
+                     //alert("giggenie init error!");
+                     var options = {};
+                     options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
+                     gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+                       window.location.href = '/';
+                     });
+                 };
+                });
+    	    };
+    	});
+    }
+
+    // 서비스 종료 명령 수신 API
+    gigagenie.voice.onRequestClose=function(){
+    	options={};
+    	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
+    	});
+    };
+    </script>
+
+  </head>
+  <body onload=init()>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="sidebar">
+      <img id="logo" src='/images/ic_sungdal.png' />
+        <a href='/'>
+          <div class="menu">
+            <span>홈</span>
+          </div>
+        </a>
+        <a href='/sync_measure'>
+          <div class="menu">
+            <span>성대모사 연습</span>
+          </div>
+        </a>
+        <a href="/dubbing">
+          <div class="menu">
+            <span>더빙</span>
+          </div>
+        </a>
+        <a href="/gallery">
+          <div class="menu selected">
+            <span>달인 갤러리</span>
+          </div>
+        </a>
+    </div>
+
+    <div class="main">
+
+      <span class="other-title">
+        <%=score%>당신의 점수는!?    <span id="number" endAt=<%=score%>></span>점
+      </span>
+       <span id="number" endAt="123"></span>
+
+
+
+    </div>
+ </body>
+</html>

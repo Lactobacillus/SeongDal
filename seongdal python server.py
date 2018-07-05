@@ -169,35 +169,103 @@ def printEnv(env):
 		print("Your Envelope is Good!")
 	return code
 
-def getAudioCutByOnset(file):
+def getAudioCutByOnset(file1, file2):
 
-	pre_emphasis = 0.97
-	wave, samplingRate = librosa.load(file,offset= 0.025)
-	print('file : ', file, ' samplingRate : ', samplingRate)
-	emphasized_signal = np.append(wave[0], wave[1:] - pre_emphasis * wave[:-1])
-	wave = librosa.util.normalize(emphasized_signal)
-	wave = denoise(wave, 300, 3400, samplingRate)
+    pre_emphasis = 0.97
+    y_t, sr_t = librosa.load(file1,offset= 0.025)
+    y, sr = librosa.load(file2,offset= 0.025)
 
-	onsetFrame = librosa.onset.onset_detect(y = wave, sr = samplingRate)
-	onsetEnvelope = librosa.onset.onset_strength(wave, sr = samplingRate)
-	onsetEnvelope = onsetEnvelope / onsetEnvelope.max()
-	onsetTime = librosa.frames_to_time(np.arange(len(onsetEnvelope)), sr = samplingRate)
+    print('target file : ', file1, ' samplingRate : ', sr_t)
+    print('input file : ', file2, ' samplingRate : ', sr_t)
 
-	selected = [onsetTime[onsetFrame[idx]] for idx in range(len(onsetFrame)) if onsetEnvelope[onsetFrame[idx]] > 0.3]
-	start = selected[0] -0.05
-	end = selected[-1] + 0.5
-	startIdx = int(start * samplingRate)
-	endIdx = int(end * samplingRate)
+    y_t, index = librosa.effects.trim(y_t)
+    y, index = librosa.effects.trim(y)
 
-	if int(start * samplingRate) < 0:
+    emphasized_signal_t = np.append(y_t[0], y_t[1:] - pre_emphasis * y_t[:-1])
+    emphasized_signal = np.append(y[0], y[1:] - pre_emphasis * y[:-1])
 
-		startIdx = 0
+    y_t = librosa.util.normalize(emphasized_signal_t)
+    y = librosa.util.normalize(emphasized_signal)
+    y_t = denoise(y_t, 80, 3400, sr_t)
+    y = denoise(y, 80, 3400, sr)
 
-	if int(end * samplingRate) > len(wave):
+    onsetFrame_t = librosa.onset.onset_detect(y = y_t, sr = sr_t)
+    onsetEnvelope_t = librosa.onset.onset_strength(y_t, sr = sr_t)
+    onsetEnvelope_t = onsetEnvelope_t / onsetEnvelope_t.max()
+    onsetTime_t = librosa.frames_to_time(np.arange(len(onsetEnvelope_t)), sr = sr_t)
 
-		endIdx = len(wave)
+    onsetFrame = librosa.onset.onset_detect(y = y, sr = sr)
+    onsetEnvelope = librosa.onset.onset_strength(y, sr = sr)
+    onsetEnvelope = onsetEnvelope / onsetEnvelope.max()
+    onsetTime = librosa.frames_to_time(np.arange(len(onsetEnvelope)), sr = sr)
 
-	return start, end, wave[startIdx:endIdx], samplingRate
+    #todo
+    selected_t = [onsetTime_t[onsetFrame_t[idx]] for idx in range(len(onsetFrame_t)) if onsetEnvelope_t[onsetFrame_t[idx]] > 0.3]
+    selected = [onsetTime[onsetFrame[idx]] for idx in range(len(onsetFrame)) if onsetEnvelope[onsetFrame[idx]] > 0.3]
+
+    start_t = selected_t[0] -0.05
+    end_t = selected_t[-1] + 0.3
+    startIdx_t = int(start_t * sr_t)
+    endIdx_t = int(end_t * sr_t)
+    howlong_t = end_t - start_t
+
+    if int(start_t * sr_t) < 0:
+
+        startIdx_t = 0
+
+    if int(end_t * sr_t) > len(y_t):
+
+        endIdx_t = len(y_t)
+
+    #these are onsets
+
+    min1 = 0
+    min2 = 0
+    temp_mfcc_distance = 100
+    #print("selected", selected)
+    for idx1 in range(len(selected)):
+        for idx2 in range(idx1+1,len(selected)):
+            start = selected[idx1] - 0.05
+            end = selected[idx2] + 0.3
+
+            if end - start < howlong_t/2:
+                continue
+
+            startIdx = int(start * sr)
+            endIdx = int(end * sr)
+
+            if int(start * sr) < 0:
+                startIdx = 0
+            if int(end * sr) > len(y):
+                endIdx = len(y)
+
+            mfcc_t = showMFCC(y_t[startIdx_t:endIdx_t], sr_t)
+            mfcc = showMFCC(y[startIdx:endIdx], sr)
+            dis = compareMFCC(mfcc_t, mfcc)
+
+            if temp_mfcc_distance > dis:
+                min1 = idx1
+                min2 = idx2
+                temp_mfcc_distance = dis
+                #print(start, end)
+                #print("distance : ",dis)
+
+
+
+    start = selected[min1] -0.05
+    end = selected[min2] + 0.3
+    startIdx = int(start * sr)
+    endIdx = int(end * sr)
+
+    if int(start * sr) < 0:
+
+        startIdx = 0
+
+    if int(end * sr) > len(y):
+
+        endIdx = len(y)
+
+    return start_t, end_t, y_t[startIdx_t:endIdx_t], sr_t, start, end, y[startIdx:endIdx], sr
 
 def getOnset(wave, samplingRate):
 
@@ -209,14 +277,14 @@ def getOnset(wave, samplingRate):
 	spectro =  librosa.stft(wave)
 	selected = [onsetTime[onsetFrame[idx]] for idx in range(len(onsetFrame)) if onsetEnvelope[onsetFrame[idx]] > 0.4]
 	print(selected)
-
+'''
 	plt.figure()
 	ax = plt.subplot(2, 1, 1)
 	librosa.display.specshow(librosa.amplitude_to_db(spectro, ref = np.max), x_axis = 'time', y_axis = 'log')
 	plt.subplot(2, 1, 2, sharex = ax)
 	plt.vlines(selected, 0, 1, color = 'blue', alpha = 0.9, linestyle = '--')
 	plt.show()
-
+'''
 def showWave(wave, samplingRate):
 
 	plt.figure(figsize = (10, 4))
@@ -279,9 +347,9 @@ def compareMFCC(mfcc1, mfcc2):
 
 	delta = long.shape[1] - short.shape[1]
 
-	for idx in range(0, delta + 1):
+#	for idx in range(0, delta + 1):
 
-		distance.append(np.linalg.norm((short - long[:,idx:idx + short.shape[1]])/short.shape[1])) #short shape
+#		distance.append(np.linalg.norm((short - long[:,idx:idx + short.shape[1]])/short.shape[1])) #short shape
 
 
 	f = interp2d(x = np.arange(short.shape[1]), y = np.arange(short.shape[0]), z = short, kind = 'cubic')
@@ -289,9 +357,9 @@ def compareMFCC(mfcc1, mfcc2):
 	interp = np.array([[f(x * short.shape[1] / long.shape[1], y * short.shape[0] / long.shape[0])
 			   for x in range(long.shape[1])] for y in range(long.shape[0])]).reshape(long.shape[0], long.shape[1])
 
-	distance.append(np.linalg.norm((interp - long)/interp.shape[1]))#interpolation shape. interpol shape
+	distance.append(np.linalg.norm((interp - long)/mfcc1.shape[1]))#interpolation shape. interpol shape
 
-	return min(distance) #TO
+	return min(distance)
 
 def testSync(target_audio_path, input_audio_path):
 
@@ -304,14 +372,14 @@ def testSync(target_audio_path, input_audio_path):
 	slow_sound.export(new_path,format="wav")
 
 	#Print
-	print("Target file: " + target_audio_path)
-	print("Input file : " + new_path)
+	#print("Target file: " + target_audio_path)
+	#print("Input file : " + new_path)
 	result['target'] = target_audio_path
 	result['input'] = new_path
 
 	# Cut By Onset
-	start_t, end_t, y_t, sr_t = getAudioCutByOnset(target_audio_path)
-	start, end, y, sr = getAudioCutByOnset(new_path)
+	start_t, end_t, y_t, sr_t, start, end, y, sr = getAudioCutByOnset(target_audio_path,new_path)
+
 
 	# slow audio
 #    y = slowAudio(y)
@@ -345,7 +413,7 @@ def testSync(target_audio_path, input_audio_path):
 
 
 	result_env, _  = fastdtw(env_t, env, dist = sp.spatial.distance.euclidean)
-	result_env /= (len(y)/sr)
+	result_env /= (len(y_t)/sr_t)
 	code_env = printEnv(result_env)
 	print("env : ", result_env)
 	result['env'] = result_env
@@ -353,9 +421,9 @@ def testSync(target_audio_path, input_audio_path):
 
 	#MFCC Analysis
 	mfcc_t = showMFCC(y_t, sr_t)
-	mfcc_t -= (np.mean(mfcc_t, axis=0) + 1e-8)
+	#mfcc_t -= (np.mean(mfcc_t, axis=0) + 1e-8)
 	mfcc = showMFCC(y, sr)
-	mfcc -= (np.mean(mfcc, axis=0) + 1e-8)
+	#mfcc -= (np.mean(mfcc, axis=0) + 1e-8)
 
 	result_mfcc = compareMFCC(mfcc_t, mfcc)
 	result['mfcc'] = result_mfcc
@@ -368,8 +436,14 @@ def testSync(target_audio_path, input_audio_path):
 	else:
 		result['score'] = np.clip((-4.7958 * result_mfcc + 143),0,100)
 
-	print(result['score'])
-	return result
+	if result['pitch_code'] != 0:
+		result['score'] -= 5
+	if result['length_code'] != 0:
+		result['score'] -= 5
+	if result['env_code'] != 0:
+		result['score'] -= 5
+
+	result['score'] = np.clip(result['score'],0,100)
 
 @app.route('/', methods = ['GET'])
 @app.route('/index', methods = ['GET'])
