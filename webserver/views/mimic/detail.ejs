@@ -32,7 +32,7 @@
 
                           if ((input_voice.indexOf('보기') >= 0 || input_voice.indexOf('미리') >= 0) && input_voice.indexOf('해보기') < 0) {
                             window.location.href = '/preview/' + script.id;
-                          } else if ((input_voice.indexOf('성대') >= 0 && input_voice.indexOf('모사') >= 0) && (input_voice.indexOf('시작') >= 0 || input_voice.indexOf('하기') >= 0 || input_voice.indexOf('시작') >= 0) && input_voice.indexOf('미리') < 0){
+                          } else if ((input_voice.indexOf('성대') >= 0 && input_voice.indexOf('모사') >= 0) && (input_voice.indexOf('시작') >= 0 || input_voice.indexOf('하기') >= 0 || input_voice.indexOf('해보기') >= 0) && input_voice.indexOf('미리') < 0){
                             window.location.href = '/practice_mimic/' + script.id;
                           } else {
                             //extra.reason 에 voice 오류 전달.
