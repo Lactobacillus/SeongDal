@@ -33,31 +33,16 @@
                               window.location.href = '/detail/' + script_list[i].id;
                               break;
                             } else if (i == script_list.length - 1) {
-                              //alert("일치하는 대사가 없습니다.");
-                              var options = {};
-                              options.ttstext = "일치하는 대사가 없습니다.";
-                              gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                                window.location.href = '/';
-                              });
+                              alert("일치하는 대사가 없습니다.");
                             }
                           }
                         } else {
-                          //alert("입력 시간이 초과하였습니다.")
-                          var options = {};
-                          options.ttstext = "입력 시간이 초과하였습니다.";
-                          gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                            window.location.href = '/';
-                          });
+                          alert("입력 시간이 초과하였습니다.")
                         }
                          });
                     } else {
                      //extra.reason 에 voice 오류 전달.
-                     //alert("giggenie init error!");
-                     var options = {};
-                     options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
-                     gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                       window.location.href = '/';
-                     });
+                     alert("giggenie init error!");
                  };
                 });
     	    };
@@ -72,57 +57,28 @@
     };
     </script>
   </head>
-  <body onload=init()>
+  <body style="background: rgb(151, 192, 183);" onload=init()>
     <header>
       <% include ../partials/header %>
     </header>
-      <div class="sidebar">
-      <img id="logo" src='/images/ic_sungdal.png' />
-
-      <a href='/'>
-        <div class="menu" id="menu-home">
-          <span>홈</span>
-        </div>
-      </a>
-      <a href='/sync_measure'>
-        <div class="menu selected" id="menu-mimic">
-          <span>성대모사 연습</span>
-        </div>
-      </a>
-      <a href="/dubbing">
-        <div class="menu">
-          <span>더빙</span>
-        </div>
-      </a>
-      <a href="/gallery">
-        <div class="menu">
-          <span>달인 갤러리</span>
-        </div>
-      </a>
+    <div class="sidenav">
+       <a href="/"><img src="/images/seongdal.png" style="width:100%;"></a>
+       <a href="/sync_measure" style="background: rgb(65,132,143);">성대모사 연습</a>
+       <a href="/dubbing">더빙</a>
+       <a href="/gallery">달인 갤러리</a>
     </div>
 
     <div class="main">
-
-      <span class="other-title">
-        성대모사할 장면을 골라주세요.
-      </span>
-
-
-      <div class="main-scene">
+      <h1 class="text">성대모사할 장면을 골라주세요.</h1>
+      <div class="row">
         <% for (var i=0; i< script_list.length; i++) { %>
-          <a href='/detail/<%=script_list[i].id%>'>
-            <div class="main-scene-item">
-              <img src='/images/<%=script_list[i].image%>' />
-              <span class="item-desc">
-                <span class="desc-title">
-                  "<%= script_list[i].sentence %>"
-                </span>
-                <span class="desc-mv">
-                  <%=script_list[i].actorName%>,'<%=script_list[i].movieName%>'
-                </span>
-              </span>
-            </div>
-          </a>
+          <div class="column" onclick="location.href='/detail/<%=script_list[i].id%>'">
+   		       <h2 class="text"><%=i+1%>. <%=script_list[i].movieName%> - <%=script_list[i].actorName%></h2>
+   		       <h2 class="text">"<%= script_list[i].sentence %>"</h2>
+   		       <div class="image-wrapper">
+   			          <img src="/images/<%=script_list[i].image%>">
+   		       </div>
+   	     </div>
         <% } %>
       </div>
     </div>

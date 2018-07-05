@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include ../partials/head_ranking_detail %>
+    <% include ../partials/head %>
     <script type="text/javascript" src="http://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
     <script type="text/javascript">
     var options={};
@@ -20,6 +20,16 @@
                 vid.onended = function() {
                   window.location.href = '/detail/' + script.id;
                 };
+                //callback 방식
+                // var options={};
+                // options.ttstext="성달 서비스를 시작합니다. 호출어를 부른 뒤 원하는 메뉴를 말씀해주세요.";
+                // gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
+                //     if(result_cd===200){
+                //       //do next action
+                //     } else {
+                //      //extra.reason 에 voice 오류 전달.
+                //  };
+                // });
     	    };
     	});
     }
@@ -46,109 +56,63 @@
     };
     </script>
   </head>
-  <body onload=init()>
+  <body style="background: rgb(151, 192, 183);" onload=init()>
     <header>
       <% include ../partials/header %>
     </header>
+    <div class="midnav">
+      <img src="/images/seongdal.png" style="width: 10%; padding-left: 10px;">
+      <div class="row">
+        <div class="column">
+          <div class="image-wrapper">
+            <img src="/images/<%=script.image%>" style="border: solid white 5px;">
+          </div>
+        </div>
+        <div class="column">
+          <table style="background-color:rgb(151,192,183);margin: auto; width :100%; height: 100%; text-align:center; border-spacing:0px 0px; border:0.1px; border-color: black; color:white;">
+            <tr style="height:10%; border-collapse: collapse;">
+              <th style="border :1px solid black; border-collapse: collapse; background-color:rgb(238,233,209);"><font color =black><h2 style ="margin:auto" >별점순 보기</h2><font></th>
+              <th style="border :1px solid black; border-collapse: collapse;"><font color =black><h2>최신순 보기</h2><font></th>
+            </tr>
+            <tr>
+              <th style="background-color:black"><h2>사용자</h2></th>
+              <th style="background-color:black"><h2>별점</h2></th>
+            </tr>
+            <tr style="height:10%; ">
+              <td style="border:1px solid black;background-color:rgb(238,233,209);"><font color =black><h2>조영우</h3></font></td>
+              <td style="border:1px solid black;background-color:rgb(238,233,209);"><font color =black><h2>4.9</h3></font></td>
+            </tr>
+            <tr style="height:10%">
+              <td style="border:1px solid black;"><h2>장민욱</h4></td>
+              <td style="border:1px solid black;"><h2>4.8</h4></td>
+            </tr>
+            <tr style="height:10%">
+              <td style="border:1px solid black;"><h2>안재우</h2></td>
+              <td style="border:1px solid black;"><h2>4.7</h2></td>
+            </tr>
+            <tr style="height:10%">
+              <td style="border:1px solid black;"><h2>정지은</h2></td>
+              <td style="border:1px solid black;"><h2>4.5</h2></td>
+            </tr>
+            <tr style="height:10%">
+              <td style="border:1px solid black;"><h2>티라노</h2></td>
+              <td style="border:1px solid black;"><h2>4.3</h2></td>
+            </tr>
+            <tr style="height:10%">
+              <td style="border:1px solid black;"><h2>코난</h2></td>
+              <td style="border:1px solid black;"><h2>4.3</h2></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="row" style="margin-top:-5%">
+        <div class="column" >
+          <h1 style="color:white; text-align:center; margin-bottom: 10%;">영화: <%=script.movieName%></h1>
+          <h1 style="color:white; text-align:center; margin-bottom: 10%;">배우: <%=script.actorName%></h1>
+          <h1 style="color:white; text-align:center;">대사: "<%=script.sentence%>"</h1>
+        </div>
+      </div>
 
-    <span class="title">
-    달인 갤러리
-    </span>
-
-  <div class="scene-info">
-    <span class="scene-detail">
-      <span class="scene-name">"<%=script.sentence%>"</span>
-    <span class="scene-sub"><img class="detail-icon" src="/images/ic_movie.png" />
-      <p>
-         <%=script.movieName%>
-      </p>
-    </span>
-    <span class="scene-sub">
-      <img class="detail-icon" src="/images/ic_actor.png" />
-      <p>
-          <%=script.actorName%>
-      </p>
-    </span>
-    <span class="scene-sub">
-      <img class="detail-icon" src="/images/ic_scene.png" />
-      <p>
-        <%=script.description%>
-      </p>
-     </span>
-    </span>
-    <div class="scene-image" style="background: url('/images/<%=script.image%>') center center; background-repeat: no-repeat;
-    background-size: cover;">
     </div>
-  </div>
-
-  <div class="table-container">
-    <img class="sort-btn" src="/images/btn_recent.png"  onmouseover="this.src='/images/btn_recent_selected.png'"  onmouseout="this.src='/images/btn_recent.png'"/>
-    <img class="sort-btn" src="/images/btn_score.png"  onmouseover="this.src='/images/btn_score_selected.png'"  onmouseout="this.src='/images/btn_score.png'"/>
-    <table>
-      <th>
-        사용자
-      </th>
-      <th>
-        점수
-      </th>
-
-      <tr>
-        <td>
-          조영우
-        </td>
-        <td>
-          <img src='/images/ic_rank_A.png' width=28 /> 90점
-        </td>
-
-      </tr>
-      <tr>
-        <td>
-          장민욱
-        </td>
-        <td>
-          <img src='/images/ic_rank_B.png' width=28 /> 80점
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          안재우
-        </td>
-        <td>
-          <img src='/images/ic_rank_C.png' width=28 /> 70점
-        </td>
-
-      </tr>
-
-      <tr>
-
-        <td>
-          정지은
-        </td>
-        <td>
-          <img src='/images/ic_rank_D.png' width=28 /> 60점
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          티라노
-        </td>
-        <td>
-          <img src='/images/ic_rank_E.png' width=28 /> 50점
-        </td>
-
-      </tr>
-
-      <tr>
-        <td>
-          티라노2
-        </td>
-        <td>
-          <img src='/images/ic_rank_F.png' width=28 /> 49점
-        </td>
-      </tr>
-    </table>
-  </div>
  </body>
 </html>

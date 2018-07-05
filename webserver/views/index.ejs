@@ -39,34 +39,23 @@
     };
     </script>
   </head>
-  <body onload=init()>
+  <body style="background: rgb(151, 192, 183);" onload=init()>
     <header>
       <% include ./partials/header %>
     </header>
+    <div class="sidenav">
+       <a href="/" style="background: rgb(65,132,143);"><img src="/images/seongdal.png" style="width:100%;"></a>
+       <a href="/sync_measure">성대모사 연습</a>
+       <a href="/dubbing">더빙</a>
+       <a href="/gallery">달인 갤러리</a>
+    </div>
 
-   <div class="sidebar">
-    <img id="logo" src='/images/ic_sungdal.png' />
-
-    <a href='/'><div class="menu selected">
-      <span>홈</span>
-    </div></a>
-    <a href='/sync_measure'><div class="menu">
-      <span>성대모사 연습</span>
-    </div></a>
-    <a href="/dubbing"><div class="menu">
-      <span>더빙</span>
-    </div></a>
-    <a href="/gallery"><div class="menu">
-      <span>달인 갤러리</span>
-    </div></a>
-  </div>
-
-  <div class="main">
-
-    <span class="home-title">
-      성대모사의 달인, <b>성달</b>에 오신 것을 환영합니다.
-    </span>
-
-  </div>
+    <div class="main">
+     <h1 class="text">성대모사의 달인 <span style="color:rgb(65,132,143);">성달</span>에 오신 것을 환영합니다.</h1><br><br>
+     <h1 class="text">메뉴를 골라주세요.</h1>
+     <h1 class="text">성대모사 연습</h1>
+     <h1 class="text">더빙하기</h1>
+     <h1 class="text">달인 갤러리</h1>
+   </div>
  </body>
 </html>

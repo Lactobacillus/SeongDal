@@ -48,13 +48,13 @@
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
                         console.log('mimic_record_start')
                         if (result_cd===200) {
-                          //alert("start!");
+                          alert("start!");
                           console.log(result_cd);
                         } else console.log('fail:'+result_cd);
                       });
 
                       setTimeout(function(){
-                        //alert('http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename);
+                        alert('http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename);
                         //window.location.href = 'http://211.252.86.136:8080/score_mimic/score_mimic<%=script.id%>/' + filename;
                         window.location.href = 'http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + filename;
                         //window.location.href = 'http://211.252.86.136:8080/mimic_score/<%=script.id%>/' + '20180627122133_slow';
@@ -63,9 +63,9 @@
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
                         console.log('mimic_record_audio')
-                        //alert("침투 완료!");
+                        alert("침투 완료!");
                         if(result_cd===200) {
-                          //alert("end!");
+                          alert("end!");
                         } else console.log('recording fail:'+result_cd);
                       }
 
@@ -114,99 +114,22 @@
     	right: 0;
     	width: 100%;
     	height: 100%;
-      background: black;
     }
   </style>
-  <body onload=init()>
+  <body style="background: rgb(151, 192, 183);" onload=init()>
     <header>
       <% include ../partials/header %>
     </header>
     <div class="image-wrapper">
-      <video id="myVideo" controls autoplay muted style="padding:0;margin:0;">
-        <source src="/videos/<%=script.movieSelected%>">
-      </video>
-      <script type="text/vtt" id="subtitle" data-label="Korean" data-lang="ko">
-        <%= script.subtitle %>
-      </script>
+      <img src="/images/<%=script.image%>" style="border: solid white 5px;">
       <div class="centered" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%)">
+        <h1 style="color: white; font-size: 50px;"><%= script.sentence %></h1>
         <h1 id="timer" style="color: white; font-size: 50px; text-align: center;"></h1>
+        <!-- <form action="/practice_mimic/<%=script.id%>/1234" method="post">
+          <button type="submit">result</button>
+        </form>
+        <a href="/mimic_score/<%=script.id%>">result</a> -->
       </div>
     </div>
-    <script>
-    function parse_timestamp(s) {
-    	//var match = s.match(/^(?:([0-9]{2,}):)?([0-5][0-9]):([0-5][0-9][.,][0-9]{0,3})/);
-    	// Relaxing the timestamp format:
-    	var match = s.match(/^(?:([0-9]+):)?([0-5][0-9]):([0-5][0-9](?:[.,][0-9]{0,3})?)/);
-    	if (match == null) {
-    		throw 'Invalid timestamp format: ' + s;
-    	}
-    	var hours = parseInt(match[1] || "0", 10);
-    	var minutes = parseInt(match[2], 10);
-    	var seconds = parseFloat(match[3].replace(',', '.'));
-    	return seconds + 60 * minutes + 60 * 60 * hours;
-    }
-
-    // https://w3c.github.io/webvtt/
-    // https://developer.mozilla.org/en/docs/Web/API/Web_Video_Text_Tracks_Format
-    // https://en.wikipedia.org/wiki/WebVTT
-    //
-    // For better parsers, look at:
-    // https://github.com/annevk/webvtt
-    // https://github.com/mozilla/vtt.js
-    function quick_and_dirty_vtt_or_srt_parser(vtt) {
-    	var lines = vtt.trim().replace('\r\n', '\n').split(/[\r\n]/).map(function(line) {
-    		return line.trim();
-    	});
-    	var cues = [];
-    	var start = null;
-    	var end = null;
-    	var payload = null;
-    	for (var i = 0; i < lines.length; i++) {
-    		if (lines[i].indexOf('--&gt;') >= 0) {
-    			var splitted = lines[i].split(/[ \t]+--&gt;[ \t]+/);
-    			if (splitted.length != 2) {
-    				throw 'Error when splitting "-->": ' + lines[i];
-    			}
-
-    			// Already ignoring anything past the "end" timestamp (i.e. cue settings).
-    			start = parse_timestamp(splitted[0]);
-    			end = parse_timestamp(splitted[1]);
-    		} else if (lines[i] == '') {
-    			if (start && end) {
-    				var cue = new VTTCue(start, end, payload);
-    				cues.push(cue);
-    				start = null;
-    				end = null;
-    				payload = null;
-    			}
-    		} else if(start && end) {
-    			if (payload == null) {
-    				payload = lines[i];
-    			} else {
-    				payload += '\n' + lines[i];
-    			}
-    		}
-    	}
-    	if (start && end) {
-    		var cue = new VTTCue(start, end, payload);
-    		cues.push(cue);
-    	}
-
-    	return cues;
-    }
-
-    function init_video() {
-    	// http://www.html5rocks.com/en/tutorials/track/basics/
-    	// https://www.iandevlin.com/blog/2015/02/javascript/dynamically-adding-text-tracks-to-html5-video
-    	var video = document.querySelector('video');
-    	var subtitle = document.getElementById('subtitle');
-    	var track = video.addTextTrack('subtitles', subtitle.dataset.label, subtitle.dataset.lang);
-    	track.mode = "showing";
-    	quick_and_dirty_vtt_or_srt_parser(subtitle.innerHTML).map(function(cue) {
-    		track.addCue(cue);
-    	});
-    }
-    init_video();
-    </script>
  </body>
 </html>

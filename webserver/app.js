@@ -41,10 +41,6 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-app.get('/minuk2', function (req, res) {
-  res.render('mimic/minuk', {score : 99});
-});
-
 app.get('/sync_measure', function (req, res) {
   res.render('mimic/sync_measure', {script_list: script_list});
 });
