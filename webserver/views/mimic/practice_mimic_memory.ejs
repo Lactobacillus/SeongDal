@@ -52,20 +52,20 @@
                           source.start(0);
                         } else {
                           console.log('recording fail:'+result_cd);
-                          alert("voice record error!");
+                          //alert("voice record error!");
                         }
                       }
 
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
                         if (result_cd===200) {
-                          alert("start!");
+                          //alert("start!");
                           console.log(result_cd);
                           console.log('mimic_memory_record_audio')
                         } else console.log('fail:'+result_cd);
                       });
 
                       gigagenie.media.stopRecordAudio(null,function(result_cd,result_msg,extra){
-                        alert("stop!");
+                        //alert("stop!");
                         console.log(result_cd);
                       });
                     } else {

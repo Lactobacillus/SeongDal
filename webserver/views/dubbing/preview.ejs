@@ -20,16 +20,6 @@
                 vid.onended = function() {
                   window.location.href = '/dubbing/detail/' + script.id;
                 };
-                //callback 방식
-                // var options={};
-                // options.ttstext="성달 서비스를 시작합니다. 호출어를 부른 뒤 원하는 메뉴를 말씀해주세요.";
-                // gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
-                //     if(result_cd===200){
-                //       //do next action
-                //     } else {
-                //      //extra.reason 에 voice 오류 전달.
-                //  };
-                // });
     	    };
     	});
     }
@@ -69,9 +59,10 @@
     	right: 0;
     	width: 100%;
     	height: 100%;
+      background: black;
     }
   </style>
-  <body style="background: rgb(151, 192, 183);" onload=init()>
+  <body onload=init()>
     <header>
       <% include ../partials/header %>
     </header>
