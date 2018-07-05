@@ -37,6 +37,13 @@ const script_list = [
   }
 ];
 
+const voice_list = [
+  {
+    "userName": "안재우",
+    "recorded": "20180705114743_slow.wav",
+  },
+];
+
 app.get('/', function (req, res) {
   res.render('index');
 });
@@ -70,7 +77,7 @@ app.get('/mimic_score/:id', function (req, res) {
   var contact = {};
   contact.length = 0;
   contact.pitch = 0;
-  contact.env = 0;
+  contact.envelope = 0;
   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
 });
 
@@ -146,7 +153,7 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
   var contact = {};
   contact.length = 0;
   contact.pitch = 0;
-  contact.env = 0;
+  contact.envelope = 0;
   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact});
 
 // res.render('mimic/mimic_score', {script: script_list[s_id]});
@@ -159,6 +166,10 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
   // 0: good, 1: bad
   // score
   // itself
+});
+
+app.get('/review', function (req, res) {
+  res.render('mimic/review', {voice: voice_list[0]});
 });
 
 app.get('/dubbing', function (req, res) {
