@@ -445,6 +445,8 @@ def testSync(target_audio_path, input_audio_path):
 
 	result['score'] = np.clip(result['score'],0,100)
 
+	return result
+
 @app.route('/', methods = ['GET'])
 @app.route('/index', methods = ['GET'])
 def index():
