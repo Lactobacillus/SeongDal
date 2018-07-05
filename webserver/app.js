@@ -96,7 +96,7 @@ app.get('/mimic_score/:id/:filename', function (req, res){
     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
 
   }
-  else if (s_id == 0){
+  else if (s_id == 1){
 
     // raewon
     var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
