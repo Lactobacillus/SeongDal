@@ -17,7 +17,7 @@
 
                 //callback 방식
                 var options={};
-                options.ttstext="성대모사 연습 화면입니다. 연습하고 싶은 대사를 말씀해주세요";
+                options.ttstext="성대모사 연습입니다. 연습하고 싶은 작품, 배우 또는 대사를 말씀해주세요.";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -35,18 +35,18 @@
                             } else if (i == script_list.length - 1) {
                               //alert("일치하는 대사가 없습니다.");
                               var options = {};
-                              options.ttstext = "일치하는 대사가 없습니다.";
+                              options.ttstext = "잘 이해하지 못했습니다. 다시 시도해주세요.";
                               gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                                window.location.href = '/';
+                                window.location.reload();
                               });
                             }
                           }
                         } else {
                           //alert("입력 시간이 초과하였습니다.")
                           var options = {};
-                          options.ttstext = "입력 시간이 초과하였습니다.";
+                          options.ttstext = "입력 시간이 초과하였습니다. 다시 시도해주세요.";
                           gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                            window.location.href = '/';
+                            window.location.reload();
                           });
                         }
                          });
