@@ -28,7 +28,6 @@
                           //do next action
 
                           var input_voice = extra.voicetext.replace(/\s/g, "");
-                          alert(input_voice);
 
                           if ((input_voice.indexOf('보기') >= 0 || input_voice.indexOf('미리') >= 0) && input_voice.indexOf('해보기') < 0) {
                             window.location.href = '/dubbing/preview/' + script.id;

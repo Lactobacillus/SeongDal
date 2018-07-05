@@ -29,7 +29,7 @@
                           // alert(msg);
                           var script_list = <%- JSON.stringify(script_list) %>
                           for (var i = 0; i < script_list.length; i++) {
-                            if (script_list[i].sentence.replace(/\s/g, "")  == extra.voicetext.replace(/\s/g, "") ) {
+                            if (script_list[i].sentence.replace(/\s/g, "") == extra.voicetext.replace(/\s/g, "") || script_list[i].movieName.replace(/\s/g, "") == extra.voicetext.replace(/\s/g, "") || script_list[i].actorName.replace(/\s/g, "") == extra.voicetext.replace(/\s/g, "")) {
                               window.location.href = '/dubbing/detail/' + script_list[i].id;
                               break;
                             } else if (i == script_list.length - 1) {
