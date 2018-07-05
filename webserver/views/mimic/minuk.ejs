@@ -27,7 +27,7 @@
 
                     // Wrap each number in a tag.
                     var frag = document.createDocumentFragment(),
-                        numLen = settings.endAt.toString().length;
+                        numLen = 3//settings.endAt.toString().length;
                     for (x = 0; x < numLen; x++) {
                         var rand_num = Math.floor( Math.random() * 10 );
                         frag.appendChild( $num.clone().text(rand_num)[0] )
@@ -163,7 +163,7 @@
     <div class="main">
 
       <span class="other-title">
-        <%=score%>당신의 점수는!?    <span id="number" endAt=<%=score%>></span>점
+        당신의 점수는!?    <span id="number" endAt=<%=score%>></span>점
       </span>
        <span id="number" endAt="123"></span>
 
