@@ -51,7 +51,7 @@ const script_list = [
     "id": 3,
     "movieName": "태조왕건",
     "actorName": "김영철",
-    "sentence": "누가 기침소리를 내었는가",
+    "sentence": "누가 기침소리를 내었는가 말이야",
     "image": "example2.jpeg",
     "movie": "example2.mp4",
     "movieSelected": "example2.mp4#t=3.5,16",
