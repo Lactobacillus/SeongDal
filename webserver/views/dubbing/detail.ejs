@@ -26,21 +26,18 @@
 		                  gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
                         if(result_cd===200){
                           //do next action
-
-                          alert(extra.voicetext);
-
                           if (extra.voicetext.replace(/\s/g, "") == "장면미리보기") {
                             window.location.href = '/dubbing/preview/' + script.id;
                           } else if (extra.voicetext.replace(/\s/g, "") == "더빙시작"){
                             window.location.href = '/dubbing/practice_dubbing/' + script.id;
                           } else {
                             //extra.reason 에 voice 오류 전달.
-                            alert("일치하는 대사가 없습니다. 다시 시도해주세요.");
-                            window.location.reload();
+                            alert("일치하는 대사가 없습니다.");
+                            window.location.href = '/';
                           }
                         } else {
-                          alert("입력 시간이 초과하였습니다. 다시 시도해주세요.");
-                          window.location.reload();
+                          alert("입력 시간이 초과하였습니다.");
+                          window.location.href = '/'
                         }
                       });
                     } else {
