@@ -79,22 +79,22 @@
       <div class="sidebar">
       <img id="logo" src='/images/ic_sungdal.png' />
 
-      <a href='/'>
+      <a href='/' tabindex='0'>
         <div class="menu" id="menu-home">
-          <span>홈</span>
+          <spantabindex>홈</span>
         </div>
       </a>
-      <a href='/sync_measure'>
+      <a href='/sync_measure' tabindex='1'>
         <div class="menu selected" id="menu-mimic">
           <span>성대모사 연습</span>
         </div>
       </a>
-      <a href="/dubbing">
+      <a href="/dubbing" tabindex='2'>
         <div class="menu">
           <span>더빙</span>
         </div>
       </a>
-      <a href="/gallery">
+      <a href="/gallery" tabindex='3'>
         <div class="menu">
           <span>달인 갤러리</span>
         </div>
@@ -110,7 +110,7 @@
 
       <div class="main-scene">
         <% for (var i=0; i< script_list.length; i++) { %>
-          <a href='/detail/<%=script_list[i].id%>'>
+          <a href='/detail/<%=script_list[i].id%>' tabindex='<%=3+i%>'>
             <div class="main-scene-item">
               <img src='/images/<%=script_list[i].image%>' />
               <span class="item-desc">
