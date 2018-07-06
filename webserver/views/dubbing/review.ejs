@@ -44,6 +44,9 @@
               break;
       }
     };
+
+    // var video = document.getElementById('dubbingVideo');
+    // setTimeout(function(){ video.muted = false;}, 6100);
     </script>
   </head>
   <style>
@@ -66,14 +69,14 @@
     <header>
       <% include ../partials/header %>
     </header>
-    <video id="previewVideo" controls autoplay muted style="padding:0;margin:0;">
+    <video id="dubbingVideo" controls autoplay muted style="padding:0;margin:0;">
       <source src="/videos/<%=script.movie%>">
     </video>
     <script type="text/vtt" id="subtitle" data-label="Korean" data-lang="ko">
       <%= script.subtitle %>
     </script>
-    <audio controls autoplay style="display:none;">
-     <source src="/voices/dubbing/<%=filename%>" type="audio/mpeg">
+    <audio id="dubbingAudio" controls autoplay style="display:none;">
+     <source src="/voices/dubbing/<%=filename%>_slow.wav" type="audio/mpeg">
    </audio>
 <script>
 function parse_timestamp(s) {

@@ -73,11 +73,13 @@
         });
     });
 
-    setTimeout(function() { $("#col1").show(); },1000);
-    setTimeout(function() { $("#col2").show(); },2000);
-    setTimeout(function() { $("#col3").show(); },3000);
+    setTimeout(function() { document.getElementById("col1").style.visibility = "visible"; },1000);
+    setTimeout(function() { document.getElementById("col2").style.visibility = "visible"; },2000);
+    setTimeout(function() { document.getElementById("col3").style.visibility = "visible"; },3000);
 
-
+    //setTimeout(function() { $("#col1").show(); },1000);
+///    setTimeout(function() { $("#col2").show(); },2000);
+  //  setTimeout(function() { $("#col3").show(); },3000);
 
 
     </script>
@@ -202,13 +204,13 @@
       else if (contact.score > 70) {ment += "조금 더 분발해보는 건 어때요?";} else if (contact.score > 60) {ment += "점수는 숫자일 뿐~ 연연하지 마세요~";}
       else if (contact.score > 30) {ment += "지금... 성대모사 하신거 맞죠?";} else if (contact.score > -1) {ment += "충격적인.. 점수네요.. 흑흑";} %>
 
-      <p><br><span class ="score-sp"><%= ment%></span><br></p>
+      <p><br><br><span class ="score-sp"><%= ment%></span><br></p>
 
       <span class ="score-sp2">
       <p>
-        <font color="#01b383"> 음정    &nbsp;  <span id = "col1" style="display:none;"><img src="/images/star<%= contact.pitch%>.png" height="100px"> <%= str1 %></span>
-        <br><font color="#01b383"> 속도   &nbsp;  <span id = "col2" style="display:none;"><img src="/images/star<%= contact.length%>.png" height="100px"> <%= str2 %></span>
-        <br><font color="#01b383"> 강약 &nbsp; <span id = "col3" style="display:none;"><img src="/images/star<%= contact.envelope%>.png" height="100px"> <%= str3 %></span>
+        <font color="#01b383"> 음정    &nbsp;  <span id = "col1" style="visibility: hidden;"><img src="/images/star<%= contact.pitch%>.png" height="100px"> <%= str1 %></span>
+        <br><font color="#01b383"> 속도   &nbsp;  <span id = "col2" style="visibility: hidden;"><img src="/images/star<%= contact.length%>.png" height="100px"> <%= str2 %></span>
+        <br><font color="#01b383"> 강약 &nbsp; <span id = "col3" style="visibility: hidden;"><img src="/images/star<%= contact.envelope%>.png" height="100px"> <%= str3 %></span>
       </p>
     </span>
 

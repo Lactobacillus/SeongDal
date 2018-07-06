@@ -221,19 +221,62 @@ app.post('/dubbing/practice_dubbing/:id/:filename', function (req, res) {
 
   console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
 
-  var writer = new wav.FileWriter(path.join(__dirname, 'public/voices/dubbing/', filename + '.wav'),{samplingRate: '8000'});
+  var writer = new wav.FileWriter(path.join('/', 'seongdalAudio', 'recorded', filename + '.wav'),{samplingRate: '8000'});
 //    channels: '숫자 1 또는 2'});
   writer.write(req.body);
   writer.end();
 
 // TODO LIST
   // res render or redirect(WEBHOOK API not implemented yet)
+  res.render('dubbing/result', {script: script_list[s_id], filename: filename});
 });
 
 app.get('/dubbing/result/:id/:filename', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
-  res.render('dubbing/result', {script: script_list[s_id], filename: filename});
+
+  if (s_id == 0){
+
+    // ain
+    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=ain';
+
+  }
+  else if (s_id == 1){
+
+    // raewon
+    var req_url = 'http://localhost:808/score?fn=' + filename + '&origin=raewon';
+  }
+
+
+  var options = {};
+  console.log("req_url is " + req_url);
+  request.get(req_url,options,function(err,result,body){
+    console.log("let's get it!");
+     if(err) {
+       console.log("request get error!");
+       console.log(err);
+       return res.json({success: false, message: err});
+     } else if(res.statusCode !== 200 ) {
+       console.log(res.statusCode);
+       console.log("status code not 200!");
+       return res.json({success: false, message: err});
+     } else {
+       console.log("res: " + JSON.stringify(result));
+       console.log("body: "+ body);
+       var contact = JSON.parse(body)
+
+      console.log('contact: ' + contact);
+      fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/dubbing', filename+'_slow.wav'), function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Copied File!: ' + filename);
+        }
+        // res.render('mimic/detail', {script: script_list[s_id]});
+        res.render('dubbing/result', {script: script_list[s_id], filename: filename});
+      });
+     }
+  });
 });
 
 app.get('/dubbing/review/:id/:filename', function (req, res) {

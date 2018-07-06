@@ -2,7 +2,7 @@
 @font-face {
   font-family: 'LotteMartHappy';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff');
 }
 
@@ -60,7 +60,7 @@ body {
 
 .title {
   color: white;
-  font-weight: 900;
+  font-weight: 700;
   margin-left: 90px;
   margin-top: 64px;
   font-size: 64px;
@@ -103,7 +103,7 @@ body {
 
 .score-title {
   color: white;
-  font-weight: 900;
+  font-weight: 700;
   text-align: center;
   margin-top: 480px;
   font-size: 64px;
@@ -113,7 +113,7 @@ body {
 .score-center {
   color: white;
   margin-top: -20px;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 100px;
   text-align:center;
 }
