@@ -19,7 +19,8 @@
                 options.ttstext = "하나, 둘, 셋 하면 더빙을 시작하세요. 하나! 둘! 셋!";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
-                      //1. delivery를 memory로 했을 경우
+                      //1. delivery를 webhook로 했을 경우
+                      var script = <%- JSON.stringify(script) %>
                       var d = new Date();
                       var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
 
@@ -40,7 +41,7 @@
                           // If the count down is over, write some text
                           if (seconds <= 0) {
                               clearInterval(x);
-                              document.getElementById("timer").innerHTML = "끝!";
+                              document.getElementById("timer").innerHTML = "처리 중입니다!";
                           }
                       }, 1000);
 
@@ -53,7 +54,7 @@
 
                       setTimeout(function(){
                         window.location.href = 'http://211.252.86.136:8080/dubbing/result/<%=script.id%>/' + filename;
-                      }, 10000);
+                      }, script.postDelayTime);
 
                       var audioBuffer=null;
                       gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
