@@ -188,13 +188,14 @@ app.get('/save/:id/:filename', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
 
-  fs.copy('C:\\seongdalAudio\\recorded\\' + filename, path.join(__dirname,'public/voices', filename), function (err) {
+  fs.copy('C:\\seongdalAudio\\recorded\\' + filename, path.join(__dirname,'public/voices/mimic', filename), function (err) {
     if (err) {
       console.log(err);
     } else {
       console.log('Copied File!: ' + filename);
     }
-    res.render('mimic/detail', {script: script_list[s_id]});
+    // res.render('mimic/detail', {script: script_list[s_id]});
+    res.redirect('/detail/'+s_id);
   });
 });
 
@@ -215,6 +216,33 @@ app.get('/dubbing/preview/:id', function (req, res) {
 app.get('/dubbing/practice_dubbing/:id', function (req, res) {
   var s_id = req.params.id;
   res.render('dubbing/practice_dubbing', {script: script_list[s_id]});
+});
+
+app.post('/dubbing/practice_dubbing/:id/:filename', function (req, res) {
+  var s_id = req.params.id;
+  var filename = req.params.filename;
+
+  console.log("RECIEVED AUDIO TO EXTRACT INDICATORS: ", req.body);
+
+  var writer = new wav.FileWriter(path.join(__dirname, 'public/voices/dubbing/', filename + '.wav'),{samplingRate: '8000'});
+//    channels: '숫자 1 또는 2'});
+  writer.write(req.body);
+  writer.end();
+
+// TODO LIST
+  // res render or redirect(WEBHOOK API not implemented yet)
+});
+
+app.get('/dubbing/result/:id/:filename', function (req, res) {
+  var s_id = req.params.id;
+  var filename = req.params.filename;
+  res.render('dubbing/result', {script: script_list[s_id], filename: filename});
+});
+
+app.get('/dubbing/review/:id/:filename', function (req, res) {
+  var s_id = req.params.id;
+  var filename = req.params.filename;
+  res.render('dubbing/review', {script: script_list[s_id], filename: filename});
 });
 
 app.get('/gallery', function (req, res) {

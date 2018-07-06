@@ -26,7 +26,7 @@
 
                       var options={};
                       options.delivery='webhook';
-                      options.recordTime=5;
+                      options.recordTime= <%= script.recordTime%>;
                       options.url='http://211.252.86.136:8080/practice_mimic/<%=script.id%>/' + filename;
 
                       var countDownDate = new Date().getTime();
@@ -70,11 +70,11 @@
                       }
 
                     } else {
-
-                    };
+                      //extra.reason 에 voice 오류 전달.
+                    }
 
                 });
-          };
+          }
       });
 
     }

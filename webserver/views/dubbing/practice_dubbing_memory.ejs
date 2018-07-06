@@ -20,13 +20,9 @@
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //1. delivery를 memory로 했을 경우
-                      var d = new Date();
-                      var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
-
                       var options={};
-                      options.delivery='webhook';
+                      options.delivery='memory';
                       options.recordTime= <%= script.recordTime%>;
-                      options.url='http://211.252.86.136:8080/dubbing/practice_dubbing/<%=script.id%>/' + filename;
 
                       var countDownDate = new Date().getTime();
                       // Update the count down every 1 second
@@ -44,30 +40,45 @@
                           }
                       }, 1000);
 
+                      var audioBuffer=null;
+                      gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
+                        if(result_cd===200) {
+                          audioBuffer=inBuffer;
+                          var audioCtx = new ( window . AudioContext || window . webkitAudioContext ) ( ) ;
+                          var source = audioCtx.createBufferSource();
+                          source.buffer=audioBuffer;
+                          source.connect(audioCtx.destination);
+                          var video = document.getElementById('myVideo');
+                          video.autoplay = false;
+                          video.pause();
+                          video.load();
+                          video.play();
+                          video.muted = false;
+                          setTimeout(function(){ source.start(0); video.muted = true;}, 6100);
+                          var script = <%- JSON.stringify(script) %>
+                          //함수 호출 및 개발 진행
+                          var vid = document.getElementById("myVideo");
+                          vid.onended = function() {
+                            window.location.href = '/dubbing/detail/' + script.id;
+                          };
+                      } else {
+                        //alert("Voice Record fail!");
+                        var options = {};
+                        options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
+                        gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+                          window.location.href = '/';
+                        });
+                      }
+                    }
+
                       gigagenie.media.startRecordAudio(options,function(result_cd,result_msg,extra){
-                        console.log('dubbing_record_start')
                         if (result_cd===200) {
                           console.log(result_cd);
                         } else console.log('fail:'+result_cd);
                       });
-
-                      setTimeout(function(){
-                        window.location.href = 'http://211.252.86.136:8080/dubbing/result/<%=script.id%>/' + filename;
-                      }, 10000);
-
-                      var audioBuffer=null;
-                      gigagenie.media.onVoiceRecordComplete=function(result_cd,inBuffer){
-                        console.log('mimic_record_audio')
-                        //alert("침투 완료!");
-                        if(result_cd===200) {
-                          //alert("end!");
-                        } else console.log('recording fail:'+result_cd);
-                      }
-
                     } else {
                      //extra.reason 에 voice 오류 전달.
                  }
-
                 });
     	    }
     	});
