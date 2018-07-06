@@ -25,7 +25,7 @@
                 setTimeout(function(){ aud.load(); aud.play(); vid.muted = true;}, 6100);
 
                 vid.onended = function() {
-                  window.location.href = '/dubbing/result/' + script.id;
+                  window.location.href = '/dubbing/result/' + script.id + '/' + <%=filename%>;
                 };
     	    };
     	});
