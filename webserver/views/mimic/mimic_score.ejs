@@ -69,9 +69,16 @@
 
         $("#number").numAnim({
             endAt: $("#number").attr("endAt"),
-            duration: 3
+            duration: 4
         });
     });
+
+    setTimeout(function() { $("#col1").show(); },1000);
+    setTimeout(function() { $("#col2").show(); },2000);
+    setTimeout(function() { $("#col3").show(); },3000);
+
+
+
 
     </script>
 
@@ -199,9 +206,9 @@
 
       <span class ="score-sp2">
       <p>
-        <font color="#01b383"> 음정    &nbsp;  <img src="/images/star<%= contact.pitch%>.png" height="100px"> <%= str1 %>
-        <br><font color="#01b383"> 속도   &nbsp;  <img src="/images/star<%= contact.length%>.png" height="100px"> <%= str2 %>
-        <br><font color="#01b383"> 강약 &nbsp; <img src="/images/star<%= contact.envelope%>.png" height="100px"> <%= str3 %>
+        <font color="#01b383"> 음정    &nbsp;  <span id = "col1" style="display:none;"><img src="/images/star<%= contact.pitch%>.png" height="100px"> <%= str1 %></span>
+        <br><font color="#01b383"> 속도   &nbsp;  <span id = "col2" style="display:none;"><img src="/images/star<%= contact.length%>.png" height="100px"> <%= str2 %></span>
+        <br><font color="#01b383"> 강약 &nbsp; <span id = "col2" style="display:none;"><img src="/images/star<%= contact.envelope%>.png" height="100px"> <%= str3 %></span>
       </p>
     </span>
 
