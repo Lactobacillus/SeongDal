@@ -17,8 +17,15 @@
                 var script = <%- JSON.stringify(script) %>
                 //함수 호출 및 개발 진행
                 var vid = document.getElementById("dubbingVideo");
+                var aud = document.getElementById("dubbingAudio");
+                vid.muted = false;
+
+                aud.autoplay = false;
+                aud.pause();
+                setTimeout(function(){ aud.load(); aud.play(); vid.muted = true;}, 6100);
+
                 vid.onended = function() {
-                  window.location.href = '/dubbing/result/' + script.id + '/' + <%=filename%>;
+                  window.location.href = '/dubbing/result/' + script.id;
                 };
     	    };
     	});
