@@ -57,7 +57,7 @@ const script_list = [
     "movie": "example4.mp4",
     "movieSelected": "example4.mp4#t=3.5,16",
     "recordTime": 7,
-    "description" : "궁예(김영철)가 마구니가 가득 찬 신하를 찾는 장면",
+    "description" : "마구니가 가득 찬 신하를 찾기 위해 궁예(김영철)가 호통치는 장면",
     "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:04.500\n니네 꼭 그랬어야되냐\n\n2\n00:00:05.000 --> 00:00:09.500\n니네 그러면 안 됐어\n\n3\n00:00:10.000 --> 00:00:16.000\n꼭 그렇게 다 가져가야만 속이 후련했냐!!",
   }
 ];
