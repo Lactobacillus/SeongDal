@@ -110,7 +110,7 @@
 
       <div class="main-scene">
         <% for (var i=0; i< script_list.length; i++) { %>
-          <a href='/detail/<%=script_list[i].id%>' tabindex='<%=4+i%>' style="position: absolute; x: <%=488+640*(i%2)%>; y: <%=202+460*(i/2)%>;">
+          <a href='/detail/<%=script_list[i].id%>' tabindex='<%=4+i%>' style="position: absolute; right: <%=760-640*(i%2)%>; top: <%=202+460*(i/2)%>;">
             <div class="main-scene-item">
               <img src='/images/<%=script_list[i].image%>' />
               <span class="item-desc">
