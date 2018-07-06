@@ -99,7 +99,8 @@ app.get('/mimic_score/:id', function (req, res) {
   contact.length = 0;
   contact.pitch = 0;
   contact.envelope = 0;
-  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default.wav'});
+  contact.score = 81;
+  res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default'});
 });
 
 app.get('/mimic_score/:id/:filename', function (req, res){
