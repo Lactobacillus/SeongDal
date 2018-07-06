@@ -186,6 +186,7 @@ a{
 .main-scene {
   margin-left: 80px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .main-scene-item{
