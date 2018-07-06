@@ -483,28 +483,22 @@ def getScore():
 
 		return jsonify(resultDict)
 
-@app.route('/ajax', methods = ['POST'])
-def receiveAudioBuff():
+@app.route('/restore', methods = ['GET'])
+def restoreAudio():
 
-	if request.method == 'POST':
+	if request.method == 'GET':
 
 		try:
 
-			audioBuff = request.form['audio']
-			mimic = request.form['mimic']
-			fileName = request.form['filename'] + '.wav'
+			recorded = request.args.get('fn')
+			original = request.args.get('origin')
 
-			with open(os.path.join(recordPath, fileName), 'wb') as fs:
-
-				fs.write(audioBuff)
+			# 성공하면 status 1, 실패 하면 status 0
+			# 오디오 길이 늘여서 저장만
 
 			resultDict = {'status' : 1}
 
-		except:
-
-			resultDict = {'status' : 0}
-
-		return jsonify(resultDict)
+	return jsonify(resultDict)
 
 if __name__ == '__main__':
 
