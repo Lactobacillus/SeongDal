@@ -185,14 +185,14 @@ a{
 
 .main-scene {
   margin-left: 80px;
-  /*display: flex;*/
+  display: flex;
 }
 
 .main-scene-item{
   margin-right: 40px;
   margin-top:40px;
-  /*display: flex;
-  flex-direction: column;*/
+  display: flex;
+  flex-direction: column;
 }
 
 .main-scene-item img {
