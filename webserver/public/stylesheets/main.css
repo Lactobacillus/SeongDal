@@ -187,6 +187,7 @@ a{
   margin-left: 80px;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: auto;
 }
 
 .main-scene-item{
