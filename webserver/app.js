@@ -36,30 +36,30 @@ const script_list = [
     "description" : "꼭 그렇게 다 가져가야만 속이 후련했냐!!",
     "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:04.500\n니네 꼭 그랬어야되냐\n\n2\n00:00:05.000 --> 00:00:09.000\n니네 그러면 안 됐어\n\n3\n00:00:09.000 --> 00:00:16.000\n꼭 그렇게 다 가져가야만 속이 후련했냐!!",
   },
-/*  {
+  {
     "id": 2,
     "movieName": "파스타",
     "actorName": "이선균",
     "sentence": "오늘의 첫 메뉴다",
-    "image": "example2.jpeg",
-    "movie": "example2.mp4",
-    "movieSelected": "example2.mp4#t=3.5,16",
+    "image": "example3.jpg",
+    "movie": "example3.mp4",
+    "movieSelected": "example3.mp4#t=3.5,16",
     "recordTime": 7,
-    "description" : "꼭 그렇게 다 가져가야만 속이 후련했냐!!",
+    "description" : "최현욱(이선균)이 첫 주문을 전달하는 장면",
     "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:04.500\n니네 꼭 그랬어야되냐\n\n2\n00:00:05.000 --> 00:00:09.500\n니네 그러면 안 됐어\n\n3\n00:00:10.000 --> 00:00:16.000\n꼭 그렇게 다 가져가야만 속이 후련했냐!!",
   },
   {
     "id": 3,
     "movieName": "태조왕건",
     "actorName": "김영철",
-    "sentence": "누가 기침소리를 내었는가 말이야",
-    "image": "example2.jpeg",
-    "movie": "example2.mp4",
-    "movieSelected": "example2.mp4#t=3.5,16",
+    "sentence": "누가 기침소리를 내었는가말이야",
+    "image": "example4.jpg",
+    "movie": "example4.mp4",
+    "movieSelected": "example4.mp4#t=3.5,16",
     "recordTime": 7,
-    "description" : "꼭 그렇게 다 가져가야만 속이 후련했냐!!",
+    "description" : "궁예(김영철)가 마구니가 가득 찬 신하를 찾는 장면",
     "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:04.500\n니네 꼭 그랬어야되냐\n\n2\n00:00:05.000 --> 00:00:09.500\n니네 그러면 안 됐어\n\n3\n00:00:10.000 --> 00:00:16.000\n꼭 그렇게 다 가져가야만 속이 후련했냐!!",
-  }*/
+  }
 ];
 
 const voice_list = [
