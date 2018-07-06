@@ -16,7 +16,7 @@
                 //init 성공
                 var script = <%- JSON.stringify(script) %>
                 //함수 호출 및 개발 진행
-                var vid = document.getElementById("previewVideo");
+                var vid = document.getElementById("dubbingVideo");
                 vid.onended = function() {
                   window.location.href = '/dubbing/result/' + script.id + '/' + <%=filename%>;
                 };
@@ -44,9 +44,6 @@
               break;
       }
     };
-
-    // var video = document.getElementById('dubbingVideo');
-    // setTimeout(function(){ video.muted = false;}, 6100);
     </script>
   </head>
   <style>
