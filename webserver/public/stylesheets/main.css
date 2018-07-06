@@ -192,6 +192,7 @@ a{
   margin-right: 40px;
   margin-top:40px;
   display: flex;
+  flex:0.5;
   flex-direction: column;
 }
 
