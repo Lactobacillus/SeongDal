@@ -113,6 +113,15 @@ a{
   justify-content: center;
 }
 
+.home-guide {
+  color: white;
+  font-weight: 100;
+  font-size: 48px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
 /* 홈 화면외 화면 경우 */
 .other-title {
   color: white;

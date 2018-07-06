@@ -73,10 +73,6 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-app.get('/minuk2', function (req, res) {
-  res.render('mimic/minuk', {score : 99});
-});
-
 app.get('/sync_measure', function (req, res) {
   res.render('mimic/sync_measure', {script_list: script_list});
 });
@@ -188,7 +184,7 @@ app.get('/save/:id/:filename', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
 
-  fs.copy('C:\\seongdalAudio\\recorded\\' + filename, path.join(__dirname,'public/voices/mimic', filename), function (err) {
+  fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/mimic', filename+'_slow.wav'), function (err) {
     if (err) {
       console.log(err);
     } else {

@@ -155,7 +155,7 @@ def printLength(ratio):
 def printEnv(env):
 
 	result = env
-	threshold = 35
+	threshold = 25
 
 	code = 0
 	message = "perfect!"

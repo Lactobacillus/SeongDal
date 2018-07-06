@@ -15,6 +15,65 @@ body {
   height: 90px;
 }
 
+.score-image {
+  max-height: 520px;
+  min-width: 80%;
+  opacity: 0.5;
+}
+.score-image::before {
+  display: block;
+  position: relative;
+  margin-top: 0px;
+  height: 520px;
+  width: 100%;
+  content: 'asdf';
+  opacity: 0.5;
+}
+.score-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 90px;
+  background: black;
+  height: 480px;
+
+  text-align: center;
+  vertical-align: middle;
+}
+.score-sp{
+
+  margin-left: 30px;
+}
+.score-sp2{
+  margin-top: -10px;
+  margin-right: 180px;
+  text-align: left;
+}
+
+.score-title {
+  color: white;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 480px;
+  font-size: 64px;
+  height: 90px;
+}
+
+.score-center {
+  color: white;
+  margin-top: -20px;
+  font-weight: 900;
+  font-size: 100px;
+  text-align:center;
+}
+
+.score-info {
+  color: white;
+  font-weight: 500;
+  font-size: 64px;
+  text-align:center;
+  vertical-align: middle;
+}
+
 .scene-info {
   display: flex;
   justify-content: space-between;
