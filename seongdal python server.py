@@ -473,6 +473,12 @@ def getScore():
 						'envelope' : int(result['env_code']),
 						'score' : int(result['score'])}
 
+			#resultDict = {'status' : 1,
+			#			'pitch' : 0,
+			#			'length' : 0,
+			#			'envelope' : 0,
+			#			'score' : 92}
+
 		except Exception as e:
 
 			exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -483,6 +489,7 @@ def getScore():
 
 		return jsonify(resultDict)
 
+"""
 @app.route('/restore', methods = ['GET'])
 def restoreAudio():
 
@@ -499,6 +506,7 @@ def restoreAudio():
 			resultDict = {'status' : 1}
 
 	return jsonify(resultDict)
+"""
 
 if __name__ == '__main__':
 

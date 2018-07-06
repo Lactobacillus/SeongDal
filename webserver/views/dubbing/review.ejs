@@ -22,7 +22,7 @@
 
                 aud.autoplay = false;
                 aud.pause();
-                setTimeout(function(){ aud.load(); aud.play(); vid.muted = true;}, 6100);
+                setTimeout(function(){ aud.load(); aud.play(); vid.muted = true;}, 5500);
 
                 vid.onended = function() {
                   window.location.href = '/dubbing/result/' + script.id + '/' + <%=filename%>;
@@ -73,7 +73,7 @@
     <header>
       <% include ../partials/header %>
     </header>
-    <video id="dubbingVideo" controls autoplay muted style="padding:0;margin:0;">
+    <video id="dubbingVideo" controls autoplay style="padding:0;margin:0;">
       <source src="/videos/<%=script.movieSelected%>">
     </video>
     <script type="text/vtt" id="subtitle" data-label="Korean" data-lang="ko">

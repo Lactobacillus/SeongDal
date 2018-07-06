@@ -102,11 +102,11 @@
 
                 if (contact.score > 90) {ment += "어머~! 싸인 좀 해주세요~";} else if (contact.score > 80) {ment += "와우 어디서 성대모사 좀 하셨군요?";}
                 else if (contact.score > 70) {ment += "조금 더 분발해보는 건 어때요?";} else if (contact.score > 60) {ment += "점수는 숫자일 뿐~ 연연하지 마세요~";}
-                else if (contact.score > 30) {ment += "지금... 성대모사 하신거 맞죠?";} else if (contact.score > -1) {ment += "충격적인.. 점수네요.. 흑흑";}
+                else if (contact.score > 30) {ment += "지금... 성대모사 하신거 맞죠?";} else if (contact.score > -1) {ment += "충격적인.. 점수네요.. 흑흑.";}
 
                 //callback 방식
                 var options={};
-                options.ttstext= ment + " 원하는 메뉴를 말씀해주세요!";
+                options.ttstext= ment + ".  원하는 메뉴를 말씀해주세요!";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -187,7 +187,7 @@
     <span class="score-title">
       <p>당신의 점수는?
              <span class = "score-center">
-              <span id="number" endAt=<%=contact.score%>></span>점
+               <span id="number" endAt=<%=contact.score%>></span>점
             </span></p>
     </span>
     <div class="score-info">
