@@ -40,19 +40,6 @@ const script_list = [
   },
   {
     "id": 2,
-    "movieName": "파스타",
-    "actorName": "이선균",
-    "sentence": "오늘의 첫 메뉴다",
-    "image": "example3.jpg",
-    "movie": "example3.mp4",
-    "movieSelected": "example3.mp4#t=3.5,16",
-    "recordTime": 7,
-    "description" : "최현욱(이선균)이 첫 주문을 전달하는 장면",
-    "subtitle" : "WEBVTT\n\n1\n00:00:05.500 --> 00:00:07.300\n오늘의 첫 메뉴다\n\n2\n00:00:05.000 --> 00:00:09.500\n어쩌구 저쩌구\n\n3\n00:00:11.500 --> 00:00:12.300\n이상4\n00:00:10.000 --> 00:00:12.300\n예~! 쉐프!",
-    "postDelayTime": 10000,
-  },
-  {
-    "id": 3,
     "movieName": "태조왕건",
     "actorName": "김영철",
     "sentence": "누가 기침소리를 내었는가말이야",
@@ -65,7 +52,7 @@ const script_list = [
     "postDelayTime": 10000,
   },
   {
-    "id": 4,
+    "id": 3,
     "movieName": "명탐정 코난",
     "actorName": "코난",
     "sentence": "내 이름은 코난, 탐정이죠",
@@ -76,7 +63,20 @@ const script_list = [
     "description" : "코난이 자기소개를 하면서 초강력 발차기로 범인을 제압하는 장면",
     "subtitle" : "WEBVTT\n\n1\n00:00:00.100 --> 00:00:03.700\n내 이름은 코난, 탐정이죠\n\n2\n00:00:04.000 --> 00:00:06.000\n뭐어??!!\n\n3\n00:00:5.000 --> 00:00:7.300\n에~~~~잇!!4\n00:00:7.600 --> 00:00:9.000\n으아악!!",
     "postDelayTime": 10000,
-  }
+  },
+  {
+    "id": 4,
+    "movieName": "파스타",
+    "actorName": "이선균",
+    "sentence": "오늘의 첫 메뉴다",
+    "image": "example3.jpg",
+    "movie": "example3.mp4",
+    "movieSelected": "example3.mp4#t=3.5,16",
+    "recordTime": 7,
+    "description" : "최현욱(이선균)이 첫 주문을 전달하는 장면",
+    "subtitle" : "WEBVTT\n\n1\n00:00:05.500 --> 00:00:07.300\n오늘의 첫 메뉴다\n\n2\n00:00:05.000 --> 00:00:09.500\n어쩌구 저쩌구\n\n3\n00:00:11.500 --> 00:00:12.300\n이상4\n00:00:10.000 --> 00:00:12.300\n예~! 쉐프!",
+    "postDelayTime": 10000,
+  },
 ];
 
 app.get('/', function (req, res) {
