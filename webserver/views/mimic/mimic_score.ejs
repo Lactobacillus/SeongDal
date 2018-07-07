@@ -97,7 +97,6 @@
             if(result_cd===200){
                 //함수 호출 및 개발 진행
                 var contact = <%- JSON.stringify(contact) %>
-                var filename = <%- JSON.stringify(filename) %>
                 var ment = "";
 
                 if (contact.score > 90) {ment += "어머~! 싸인 좀 해주세요~";} else if (contact.score > 80) {ment += "와우 어디서 성대모사 좀 하셨군요?";}
@@ -106,7 +105,7 @@
 
                 //callback 방식
                 var options={};
-                options.ttstext= ment + ".  원하는 메뉴를 말씀해주세요!";
+                options.ttstext= ment + "[P3]원하시는 메뉴를 골라주세요!";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -118,11 +117,10 @@
                           // alert(msg);
                           //do next action
                           var input_voice = extra.voicetext.replace(/\s/g, "");
-
                           if ((input_voice.indexOf('다시') >= 0 || input_voice.indexOf('하기') >= 0) && input_voice.indexOf('저장') < 0) {
                             window.location.href = '/practice_mimic/' + script.id;
                           } else if ((input_voice.indexOf('저장') >= 0 || input_voice.indexOf('하기') >= 0) && input_voice.indexOf('다시') < 0) {
-                            window.location.href = '/save/' + script.id + '/' + filename;
+                            saveRecord();
                           } else {
                             //extra.reason 에 voice 오류 전달.
                             //alert("일치하는 대사가 없습니다.");
@@ -176,6 +174,24 @@
       }
     };
 
+    function saveRecord () {
+      var script = <%- JSON.stringify(script) %>
+      var filename = <%- JSON.stringify(filename) %>
+      var options = {};
+      options.ttstext= "녹음하신 음성 파일이 저장되었습니다!";
+      gigagenie.voice.sendTTS(options, function (result_cd, result_msg, extra) {
+        if (result_cd==200) {
+          window.location.href = '/save/' + script.id + '/' + filename;
+        } else {
+         //extra.reason 에 voice 오류 전달.
+         var options = {};
+         options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
+         gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+           window.location.href = '/';
+         });
+        };
+      });
+    }
     </script>
 
   </head>
@@ -218,7 +234,7 @@
     <audio autoplay="true" src="/voices/score_sound.wav"></audio>
     <div class="actions">
   <img src="/images/btn_re.png" onmouseover="this.src='/images/btn_re_selected.png'"  onmouseout="this.src='/images/btn_re.png'" onclick="location.href='/practice_mimic/<%=script.id%>'" />
-  <img src="/images/btn_save.png"  onmouseover="this.src='/images/btn_save_selected.png'"  onmouseout="this.src='/images/btn_save.png'" onclick="location.href='/save/<%=script.id%>/<%=filename%>'"/>
+  <img src="/images/btn_save.png"  onmouseover="this.src='/images/btn_save_selected.png'"  onmouseout="this.src='/images/btn_save.png'" onclick="saveRecord()"/>
   </div>
 
  </body>
