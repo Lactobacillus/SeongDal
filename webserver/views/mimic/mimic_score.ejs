@@ -131,9 +131,9 @@
                             });
                           }
                         } else {
-                          //alert("입력 시간이 초과하였습니다.")
+                          //alert("입력 시간이 초과되었습니다.")
                           var options = {};
-                          options.ttstext = "입력 시간이 초과하였습니다.";
+                          options.ttstext = "입력 시간이 초과되었습니다.";
                           gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
                             window.location.reload();
                           });
@@ -178,10 +178,15 @@
       var script = <%- JSON.stringify(script) %>
       var filename = <%- JSON.stringify(filename) %>
       var options = {};
-      options.ttstext= "녹음하신 음성 파일이 저장되었습니다!";
+      options.ttstext= "녹음하신 음성 파일이 저장되었습니다! 달인 갤러리로 이동하시겠습니까?";
       gigagenie.voice.sendTTS(options, function (result_cd, result_msg, extra) {
         if (result_cd==200) {
-          window.location.href = '/save/' + script.id + '/' + filename;
+          if (confirm("달인 갤러리로 이동하시겠습니까?")) {
+            window.location.href = '/save/' + script.id + '/' + filename + '/' + 0;
+          } else {
+            window.location.href = '/save/' + script.id + '/' + filename + '/' + 1;
+            // window.location.reload();
+          }
         } else {
          //extra.reason 에 voice 오류 전달.
          var options = {};

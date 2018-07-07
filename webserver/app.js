@@ -191,9 +191,10 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
   // itself
 });
 
-app.get('/save/:id/:filename', function (req, res) {
+app.get('/save/:id/:filename/:mode', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
+  var mode = req.params.mode;
 
   fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/mimic', filename+'_slow.wav'), function (err) {
     if (err) {
@@ -202,7 +203,11 @@ app.get('/save/:id/:filename', function (req, res) {
       console.log('Copied File!: ' + filename);
     }
     // res.render('mimic/detail', {script: script_list[s_id]});
-    res.redirect('/detail/'+s_id);
+    if (mode == 0) {
+      res.redirect('/gallery');
+    } else {
+      res.redirect('/mimic_score/'+s_id+'/'+filename);
+    }
   });
 });
 

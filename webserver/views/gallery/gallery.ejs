@@ -42,9 +42,9 @@
                             }
                           }
                         } else {
-                          //alert("입력 시간이 초과하였습니다.")
+                          //alert("입력 시간이 초과되었습니다.")
                           var options = {};
-                          options.ttstext = "입력 시간이 초과하였습니다.";
+                          options.ttstext = "입력 시간이 초과되었습니다.";
                           gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
                             window.location.href = '/';
                           });
