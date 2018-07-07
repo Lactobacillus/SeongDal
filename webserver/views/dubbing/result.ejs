@@ -72,8 +72,10 @@
   </div>
 
   <div class="actions">
+    <img src="/images/btn_re.png" onmouseover="this.src='/images/btn_re_selected.png'"  onmouseout="this.src='/images/btn_re.png'" onclick="location.href='/dubbing/practice_dubbing/<%=script.id%>'" />
     <a href="/dubbing/review/<%=script.id%>/<%=filename%>"><h1 style="text-align:center; color:white;">다시 보기</h1></a>
-    <a href="/dubbing/practice_dubbing/<%=script.id%>"><h1 style="text-align:center; color:white;">다시 하기</h1></a>
+    <!-- <img src="/images/btn_save.png"  onmouseover="this.src='/images/btn_save_selected.png'"  onmouseout="this.src='/images/btn_save.png'" onclick="location.href='/dubbing/review/<%=script.id%>/<%=filename%>'"/> -->
   </div>
+  <a href="/dubbing/detail/<%=script.id%>" style="color:white;">뒤로 가기</a>
  </body>
 </html>
