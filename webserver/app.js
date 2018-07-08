@@ -106,10 +106,10 @@ app.get('/mimic_score/:id', function (req, res) {
 
   var s_id = req.params.id;
   var contact = {};
-  contact.length = 0;
-  contact.pitch = 0;
+  contact.length = 2;
+  contact.pitch = 1;
   contact.envelope = 0;
-  contact.score = 81;
+  contact.score = 76;
   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default'});
 });
 
