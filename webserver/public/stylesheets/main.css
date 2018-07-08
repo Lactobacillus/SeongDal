@@ -167,11 +167,13 @@ a{
 
 .home-guide {
   color: white;
-  font-weight: 400;
+  margin: auto;
+  font-weight: 350;
   font-size: 48px;
   display: flex;
   justify-content: center;
   text-align: center;
+  vertical-align: middle;
 }
 
 /* 홈 화면외 화면 경우 */

@@ -195,8 +195,13 @@ app.get('/save/:id/:filename/:mode', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
   var mode = req.params.mode;
+  var filename_new = "안재우";
 
-  fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/mimic', filename+'_slow.wav'), function (err) {
+  if (s_id == 0) { filename_new += "ain"; } else { filename_new += "raewon"; }
+
+  filename_new += (filename+'_slow.wav');
+
+  fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/mimic', filename_new), function (err) {
     if (err) {
       console.log(err);
     } else {

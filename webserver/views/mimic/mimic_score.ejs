@@ -177,10 +177,12 @@
     function saveRecord () {
       var script = <%- JSON.stringify(script) %>
       var filename = <%- JSON.stringify(filename) %>
+      var contact = <%- JSON.stringify(contact) %>
       var options = {};
       options.ttstext= "녹음하신 음성 파일이 저장되었습니다! 달인 갤러리로 이동하시겠습니까?";
       gigagenie.voice.sendTTS(options, function (result_cd, result_msg, extra) {
         if (result_cd==200) {
+          var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;
           if (confirm("달인 갤러리로 이동하시겠습니까?")) {
             window.location.href = '/save/' + script.id + '/' + filename + '/' + 0;
           } else {

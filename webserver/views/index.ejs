@@ -23,6 +23,7 @@
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
+
                     } else {
                      //extra.reason 에 voice 오류 전달.
                  };
@@ -37,6 +38,21 @@
     	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
     	});
     };
+
+    // gigagenie.voice.onActionEvent=function(extra){
+    //   console.log(extra.actioncode);
+    //   switch(extra.actioncode){
+    //     case 'QueryHello':
+    //         //QueryHello 처리
+    //         break;
+    //     case 'QueryWorld':
+    //         //QUeryWorld 처리
+    //         break;
+    //     default:
+    //         break;
+    //   };
+    // };
+
     </script>
   </head>
   <body onload=init()>
@@ -44,35 +60,48 @@
       <% include ./partials/header %>
     </header>
 
-   <div class="sidebar">
-    <img id="logo" src='/images/ic_sungdal.png' />
+    <div class="sidebar">
+     <img id="logo" src='/images/ic_sungdal.png' />
 
-    <a href='/' tabindex='0'><div class="menu selected">
-      <span>홈</span>
-    </div></a>
-    <a href='/sync_measure' tabindex='1'><div class="menu">
-      <span>성대모사 연습</span>
-    </div></a>
-    <a href="/dubbing" tabindex='2'><div class="menu">
-      <span>더빙</span>
-    </div></a>
-    <a href="/gallery" tabindex='3'><div class="menu">
-      <span>달인 갤러리</span>
-    </div></a>
-  </div>
+     <a href='/' tabindex='0'><div class="menu selected">
+       <span>홈</span>
+     </div></a>
+     <a href='/sync_measure' tabindex='1'><div class="menu">
+       <span>연습하기</span>
+     </div></a>
+     <a href="/dubbing" tabindex='2'><div class="menu">
+       <span>더빙하기</span>
+     </div></a>
+     <a href="/gallery" tabindex='3'><div class="menu">
+       <span>달인 갤러리</span>
+     </div></a>
+   </div>
+
 
   <div class="main">
 
     <span class="home-title">
       성대모사의 달인, <b>성달</b>에 오신 것을 환영합니다.
+      <br><br><br>
     </span>
     <span class="home-guide">
 
-      <p><br><img src="/images/guide-speak.png" height="80px" > &nbsp; <font color="#01b383"><b>"아래의 명령어"</b></font> 를 이용해보세요!<br><br>
-      <font color="#01b383">  "성대모사 연습할래!"<br>
-      "더빙 할래!"<br>
-      "달인 갤러리 보여줘!"</p>
-    </span>
+      <p>1. <font color="#01b383">"연습하기"</font>에서 성대모사를 하고 <font color="#01b383">점수와 피드백</font>을 확인해보세요~
+      <br><br>
+      <img src="/images/guide-speak.png" height="50px" align = "top" > &nbsp; <font color="#01b383">"성대모사 연습할래!"</font>
+
+      <br><br>
+      2.<font color="#01b383">"더빙하기"</font>에서 실제 장면에 <font color="#01b383">목소리를 직접 더빙</font>해보세요~
+      <br><br>
+      <img src="/images/guide-speak.png" height="50px" align = "top" > &nbsp; <font color="#01b383">"더빙하기!"</font>
+
+      <br><br>
+      3.<font color="#01b383">"달인 갤러리"</font>에서 <font color="#01b383">다른 사람들</font>의 성대모사 실력을 확인해보세요~
+      <br><br>
+      <img src="/images/guide-speak.png"; height="50px" align="top" >  &nbsp; <font color="#01b383"> "달인 갤러리 보여줘!"</font>
+      </p>
+
+</span>
 
   </div>
  </body>
