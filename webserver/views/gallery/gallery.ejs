@@ -17,10 +17,9 @@
     	gigagenie.init(options,function(result_cd,result_msg,extra){
             if(result_cd===200){
                 //함수 호출 및 개발 진행
-
                 //callback 방식
                 var options={};
-                options.ttstext="달인 갤러리입니다. 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수를 이야기해주세요.";
+                options.ttstext="달인 갤러리입니다. 점수 순으로 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수를 이야기해주세요.";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -29,20 +28,23 @@
 		                  gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
                         if (result_cd == 200) {
                           // var msg = "음성인식 결과 : " + extra.voicetext;
-                          // alert(msg);
-                          var script_list = <%- JSON.stringify(script_list) %>
-                          for (var i = 0; i < script_list.length; i++) {
-                            if (script_list[i].sentence.replace(/\s/g, "")  == extra.voicetext.replace(/\s/g, "") ) {
-                              window.location.href = '/gallery/detail/' + script_list[i].id;
-                              break;
-                            } else if (i == script_list.length - 1) {
-                              //alert("일치하는 대사가 없습니다.");
-                              var options = {};
-                              options.ttstext = "잘 이해하지 못했습니다. 다시 시도해주세요.";
-                              gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                                window.location.reload();
-                              });
-                            }
+                          var record_list = <%- JSON.stringify(record_list) %>
+                          var idx = -1;
+                          if (extra.voicetext.replace(/\s/g, "") == "1등") idx = 0;
+                          else if (extra.voicetext.replace(/\s/g, "") == "2등") idx = 1;
+                          else if (extra.voicetext.replace(/\s/g, "") == "3등") idx = 2;
+                          else if (extra.voicetext.replace(/\s/g, "") == "4등") idx = 3;
+                          else if (extra.voicetext.replace(/\s/g, "") == "5등") idx = 4;
+
+                          if (idx != -1) {
+                            window.location.href = '/gallery/review/' + record_list[idx].scene + '/' + record_list[idx].filename;
+                          }
+                          else {
+                            var options = {};
+                            options.ttstext = "잘 이해하지 못했습니다. 다시 시도해주세요.";
+                            gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+                              window.location.reload();
+                            });
                           }
                         } else {
                           //alert("입력 시간이 초과되었습니다.")
@@ -164,7 +166,7 @@
    </div>
 
   <div class="actions">
-    <img src="/images/btn_score.png"  onmouseover="this.src='/images/btn_score_selected.png'"  onmouseout="this.src='/images/btn_score.png'" onclick="location.href='/'"/>
+    <img src="/images/btn_score.png"  onmouseover="this.src='/images/btn_score_selected.png'"  onmouseout="this.src='/images/btn_score.png'" onclick="location.href='/gallery'"/>
     <img src="/images/btn_recent.png" onmouseover="this.src='/images/btn_recent_selected.png'"  onmouseout="this.src='/images/btn_recent.png'" onclick="location.href='/'" />
   </div>
 
