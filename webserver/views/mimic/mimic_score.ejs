@@ -218,9 +218,9 @@
       <% var str1 = "" %>
       <% var str2 = "" %>
       <% var str3 = "" %>
-      <% if (contact.pitch == 0) {str1 += "";} else if (contact.pitch == 1) {str1 += "낮아요!";} else if (contact.pitch == 2) {str1 += "높아요!";} %>
-      <% if (contact.length == 0) {str2 += "";} else if (contact.length == 1) {str2 += "빨라요!";} else if (contact.length == 2) {str2 += "느려요!";} %>
-      <% if (contact.envelope == 0) {str3 += "";} else if (contact.envelope == 1) {str3 += "달라요!";} %>
+      <% if (contact.pitch == 0) {str1 += "완벽해요!";} else if (contact.pitch == 1) {str1 += "낮아요!";} else if (contact.pitch == 2) {str1 += "높아요!";} %>
+      <% if (contact.length == 0) {str2 += "완벽해요!";} else if (contact.length == 1) {str2 += "빨라요!";} else if (contact.length == 2) {str2 += "느려요!";} %>
+      <% if (contact.envelope == 0) {str3 += "완벽해요!";} else if (contact.envelope == 1) {str3 += "달라요!";} %>
 
       <% var ment = "" %>
       <% if (contact.score > 90) {ment += "어머~! 싸인 좀 해주세요~";} else if (contact.score > 80) {ment += "와우 어디서 성대모사 좀 하셨군요?";}
