@@ -318,8 +318,8 @@ app.get('/gallery', function (req, res) {
   record_list.sort(function(a, b) { // 오름차순
       return b[sortingField] - a[sortingField];
   });
-  
-  res.render('gallery/gallery', {script_list: script_list, record_list: record_list[0:4]});
+
+  res.render('gallery/gallery', {script_list: script_list, record_list: record_list});
 });
 
 app.get('/gallery/review/:id/:filename', function (req, res) {
