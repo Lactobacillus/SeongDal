@@ -313,7 +313,7 @@ app.get('/gallery', function (req, res) {
     record.filename = file;
     record_list.push(record);
   })
-  var sortingField = "age";
+  var sortingField = "score";
 
   record_list.sort(function(a, b) { // 오름차순
       return b[sortingField] - a[sortingField];
