@@ -3,7 +3,9 @@
   <head>
     <% include ../partials/head %>
     <% include ../partials/head_detail %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <script>
     (function($){
         $.fn.extend({
@@ -179,12 +181,26 @@
       gigagenie.voice.sendTTS(options, function (result_cd, result_msg, extra) {
         if (result_cd==200) {
           var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;
-          if (confirm("달인 갤러리로 이동하시겠습니까?")) {
-            window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
-          } else {
-            window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
-            // window.location.reload();
-          }
+          (function($){
+        		$.confirm({
+        			title: '성대모사 저장하기',
+            content: '달인 갤러리로 이동하시겠습니까?',
+            buttons: {
+                네: function () {
+                    window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
+                },
+                아니요: function () {
+                    window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
+                },
+            }
+        		});
+        	})(jQuery);
+          // if (confirm("달인 갤러리로 이동하시겠습니까?")) {
+          //   window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
+          // } else {
+          //   window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
+          //   // window.location.reload();
+          // }
         } else {
          //extra.reason 에 voice 오류 전달.
          var options = {};
