@@ -20,7 +20,7 @@
 
                 //callback 방식
                 var options={};
-                options.ttstext="달인 갤러리입니다. 보고싶은 사용자를 말하십시오. 이 기능은 현재 구현중입니다.";
+                options.ttstext="달인 갤러리입니다. 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수를 이야기해주세요.";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -79,36 +79,50 @@
     <header>
       <% include ../partials/header %>
     </header>
-	<span class="score-title">
+	<span class="score-title" style="margin-left:10px; margin-top:15px">
     달인 갤러리
 	</span>
 
-   <div class="table-container" style="width:110%;margin-left:45px;margin-right:45px;">
+   <div class="table-container" style="width:90%; margin-left: auto; margin-right:auto;margin-top:60px">
      <table>
        <th>
          <font color="#01b383">
        등수</font>
        </th>
        <th>
-         등록 시간
+         <font color="#01b383">
+         등록일
        </th>
 
        <th>
+         <font color="#01b383">
+
          이름
        </th>
        <th>
+         <font color="#01b383">
+
          대사
        </th>
        <th>
+         <font color="#01b383">
+
          음정
        </th>
        <th>
+         <font color="#01b383">
+
          속도
        </th>
        <th>
+         <font color="#01b383">
+
          강약
+
        </th>
        <th>
+         <font color="#01b383">
+
          점수
        </th>
 
@@ -119,7 +133,7 @@
              <%= i+1 %>등
            </td>
            <td>
-             등록 시간
+            <%= record_list[i].id.slice(2,4)%>-<%=record_list[i].id.slice(4,6)%>-<%=record_list[i].id.slice(6,8) %>
            </td>
            <td>
              <%= record_list[i].username %>
@@ -139,8 +153,10 @@
              <% var str = ""; if (record_list[i].envelope == 0) {str = "완벽해요!";} else if (record_list[i].envelope == 1) {str = "달라요!";} %>
              <%= str %>
            </td>
-           <td>
-             <%= record_list[i].score %>점
+                        <td style="font-size:48px">
+                          <font color="#01b383">
+
+             <b><%= record_list[i].score %>점</b></font>
            </td>
          </tr>
        <% } %>

@@ -94,10 +94,10 @@ app.get('/mimic_score/:id', function (req, res) {
 
   var s_id = req.params.id;
   var contact = {};
-  contact.length = 0;
+  contact.length = 1;
   contact.pitch = 0;
-  contact.envelope = 1;
-  contact.score = 64;
+  contact.envelope = 0;
+  contact.score = 84;
   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default'});
 });
 
@@ -146,10 +146,37 @@ app.get('/mimic_score/:id/:filename', function (req, res){
        res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: filename});
      }
   });
-
-
-
 });
+
+app.get('/mimic_score_popup/:id', function (req, res) {
+
+  var s_id = req.params.id;
+  var contact = {};
+  contact.length = 1;
+  contact.pitch = 0;
+  contact.envelope = 0;
+  contact.score = 84;
+  res.render('mimic/mimic_score_popup', {script: script_list[s_id], contact: contact, filename: 'default'});
+});
+
+app.get('/mimic_score_popup/:id/:filename/:score/:pitch/:length/:envelope', function (req, res) {
+
+  var s_id = req.params.id;
+  var filename = req.params.filename;
+  var score = req.params.score;
+  var pitch = req.params.pitch;
+  var length = req.params.length;
+  var envelope = req.params.envelope;
+  var contact = {};
+
+  contact.pitch = pitch;
+  contact.length = length;
+  contact.envelope = envelope;
+  contact.score = score;
+  res.render('mimic/mimic_score_popup', {script: script_list[s_id], contact: contact, filename: filename});
+});
+
+
 
 app.post('/practice_mimic/:id/:filename', function (req, res) {
   var s_id = req.params.id;

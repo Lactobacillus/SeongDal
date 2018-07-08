@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <% include ../partials/head_detail %>
+    <script type="text/javascript" src="http://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
+    <script type="text/javascript">
+    var options={};
+    // 서비스 초기화
+    function init(){
+        options={};
+    	options.keytype="GBOXDEVM"; // 개발(GBOXDEVM) 또는 상용(GBOXCOMM) 키 종류 입력
+    	options.apikey="RTUwMDE4OTN8R0JPWERFVk18MTUyODY5MTc4MzQ4Ng=="; // 개발자 포털에서 키를 발급받아 입력
+
+    	gigagenie.init(options,function(result_cd,result_msg,extra){
+            if(result_cd===200){
+                //함수 호출 및 개발 진행
+                var script = <%- JSON.stringify(script) %>
+                var filename = <%- JSON.stringify(filename) %>
+                var contact = <%- JSON.stringify(contact) %>
+                //callback 방식
+                var options={};
+                options.ttstext= "달인 갤러리로 이동하시겠습니까?";
+                gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
+                    if(result_cd===200){
+                      //do next action
+                      options = {};
+		                  gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
+                        if (result_cd == 200) {
+                          // var msg = "음성인식 결과 : " + extra.voicetext;
+                          // alert(msg);
+                          //do next action
+                          var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;;
+                          var input_voice = extra.voicetext.replace(/\s/g, "");
+                          if (input_voice.indexOf('네') >= 0 && input_voice.indexOf('아니요') < 0) {
+                            window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
+                          } else if (input_voice.indexOf('네') < 0 && input_voice.indexOf('아니요') >= 0) {
+                            window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
+                          } else {
+                            //extra.reason 에 voice 오류 전달.
+                            //alert("일치하는 대사가 없습니다.");
+                            var options = {};
+                            options.ttstext = "잘 이해하지 못했습니다. 다시 시도해주세요.";
+                            gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+                              window.location.reload();
+                            });
+                          }
+                        } else {
+                          //alert("입력 시간이 초과되었습니다.")
+                          var options = {};
+                          options.ttstext = "입력 시간이 초과되었습니다.";
+                          gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
+                            window.location.reload();
+                          });
+                        }
+                         });
+                    } else {
+                     //extra.reason 에 voice 오류 전달.
+                     //alert("giggenie init error!");
+                     window.location.reload();
+                 };
+                });
+    	    };
+    	});
+    }
+
+    // 서비스 종료 명령 수신 API
+    gigagenie.voice.onRequestClose=function(){
+    	options={};
+    	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
+    	});
+    };
+
+    gigagenie.voice.onVoiceCommand=function(event){
+      switch(event){
+          case 'nextPage':
+              //navigate next page
+              break;
+          case 'prevPage':
+              //navigate prev page
+              window.history.back();
+              break;
+          default:
+              break;
+      }
+    };
+    </script>
+
+  </head>
+  <body onload=init()>
+    <header>
+      <% include ../partials/header %>
+    </header>
+
+    <span class="score-title">
+      <p>당신의 점수는?
+             <span class = "score-center">
+               <span id="number"><%=contact.score%></span>점
+            </span></p>
+    </span>
+    <div class="score-info">
+
+      <% var str1 = "" %>
+      <% var str2 = "" %>
+      <% var str3 = "" %>
+      <% if (contact.pitch == 0) {str1 += "완벽해요!";} else if (contact.pitch == 1) {str1 += "낮아요!";} else if (contact.pitch == 2) {str1 += "높아요!";} %>
+      <% if (contact.length == 0) {str2 += "완벽해요!";} else if (contact.length == 1) {str2 += "빨라요!";} else if (contact.length == 2) {str2 += "느려요!";} %>
+      <% if (contact.envelope == 0) {str3 += "완벽해요!";} else if (contact.envelope == 1) {str3 += "달라요!";} %>
+
+      <% var ment = "" %>
+      <% if (contact.score > 90) {ment += "어머~! 싸인 좀 해주세요~";} else if (contact.score > 80) {ment += "와우 어디서 성대모사 좀 하셨군요?";}
+      else if (contact.score > 70) {ment += "조금 더 분발해보는 건 어때요?";} else if (contact.score > 60) {ment += "점수는 숫자일 뿐~ 연연하지 마세요~";}
+      else if (contact.score > 30) {ment += "지금... 성대모사 하신거 맞죠?";} else if (contact.score > -1) {ment += "충격적인.. 점수네요.. 흑흑";} %>
+
+      <p><br><br><span class ="score-sp"><%= ment%></span><br></p>
+
+      <span class ="score-sp2">
+      <p>
+        <font color="#01b383"> 음정    &nbsp;  <span id = "col1"><img src="/images/star<%= contact.pitch%>.png" height="100px"> <%= str1 %></span>
+        <br><font color="#01b383"> 속도   &nbsp;  <span id = "col2"><img src="/images/star<%= contact.length%>.png" height="100px"> <%= str2 %></span>
+        <br><font color="#01b383"> 강약 &nbsp; <span id = "col3"><img src="/images/star<%= contact.envelope%>.png" height="100px"> <%= str3 %></span>
+      </p>
+    </span>
+
+    </div>
+    <div class="actions">
+  <img src="/images/btn_re.png" onmouseover="this.src='/images/btn_re_selected.png'"  onmouseout="this.src='/images/btn_re.png'" />
+  <img src="/images/btn_save.png"  onmouseover="this.src='/images/btn_save_selected.png'"  onmouseout="this.src='/images/btn_save.png'"/>
+  </div>
+  <a href="/detail/<%=script.id%>" style="color:white; display:none">뒤로 가기</a>
+
+    <!-- The Modal -->
+  <div id="myModal" class="modal" style="display:block;">
+    <!-- Modal content -->
+    <div class="modal-content" style="text-align:center;">
+      <h1>달인 갤러리로 이동하시겠습니까?</h1>
+      <button><h1>네네네</h1></button>
+      <button><h1>아니요</h1></button>
+    </div>
+  </div>
+
+ </body>
+</html>

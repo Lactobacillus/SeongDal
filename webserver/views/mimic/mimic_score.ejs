@@ -3,9 +3,7 @@
   <head>
     <% include ../partials/head %>
     <% include ../partials/head_detail %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <script>
     (function($){
         $.fn.extend({
@@ -99,6 +97,7 @@
             if(result_cd===200){
                 //함수 호출 및 개발 진행
                 var contact = <%- JSON.stringify(contact) %>
+                var filename = <%- JSON.stringify(filename) %>
                 var ment = "";
 
                 if (contact.score > 90) {ment += "어머~! 싸인 좀 해주세요~";} else if (contact.score > 80) {ment += "와우 어디서 성대모사 좀 하셨군요?";}
@@ -151,6 +150,13 @@
     	});
     }
 
+    function saveRecord () {
+      var script = <%- JSON.stringify(script) %>
+      var contact = <%- JSON.stringify(contact) %>
+      var filename = <%- JSON.stringify(filename) %>
+      window.location.href = '/mimic_score_popup/' + script.id +'/' + filename + '/' + contact.score + '/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;
+    };
+
     // 서비스 종료 명령 수신 API
     gigagenie.voice.onRequestClose=function(){
     	options={};
@@ -171,46 +177,6 @@
               break;
       }
     };
-
-    function saveRecord () {
-      var script = <%- JSON.stringify(script) %>
-      var filename = <%- JSON.stringify(filename) %>
-      var contact = <%- JSON.stringify(contact) %>
-      var options = {};
-      options.ttstext= "녹음하신 음성 파일이 저장되었습니다! 달인 갤러리로 이동하시겠습니까?";
-      gigagenie.voice.sendTTS(options, function (result_cd, result_msg, extra) {
-        if (result_cd==200) {
-          var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;
-          (function($){
-        		$.confirm({
-        			title: '성대모사 저장하기',
-            content: '달인 갤러리로 이동하시겠습니까?',
-            buttons: {
-                네: function () {
-                    window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
-                },
-                아니요: function () {
-                    window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
-                },
-            }
-        		});
-        	})(jQuery);
-          // if (confirm("달인 갤러리로 이동하시겠습니까?")) {
-          //   window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
-          // } else {
-          //   window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
-          //   // window.location.reload();
-          // }
-        } else {
-         //extra.reason 에 voice 오류 전달.
-         var options = {};
-         options.ttstext = "기가 지니 내부 오류로 인해 홈 화면으로 이동합니다.";
-         gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-           window.location.href = '/';
-         });
-        };
-      });
-    }
     </script>
 
   </head>
@@ -256,5 +222,6 @@
   <img src="/images/btn_save.png"  onmouseover="this.src='/images/btn_save_selected.png'"  onmouseout="this.src='/images/btn_save.png'" onclick="saveRecord()"/>
   </div>
   <a href="/detail/<%=script.id%>" style="color:white; display:none">뒤로 가기</a>
+
  </body>
 </html>
