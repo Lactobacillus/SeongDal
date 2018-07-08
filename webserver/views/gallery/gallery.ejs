@@ -77,33 +77,25 @@
     <header>
       <% include ../partials/header %>
     </header>
-
-    <div class="sidebar">
-     <img id="logo" src='/images/ic_sungdal.png' />
-
-     <a href='/' tabindex='0'><div class="menu">
-       <span>홈</span>
-     </div></a>
-     <a href='/sync_measure' tabindex='1'><div class="menu">
-       <span>연습하기</span>
-     </div></a>
-     <a href="/dubbing" tabindex='2'><div class="menu">
-       <span>더빙하기</span>
-     </div></a>
-     <a href="/gallery" tabindex='3'><div class="menu selected">
-       <span>달인 갤러리</span>
-     </div></a>
-   </div>
+	<span class="title">
+    당신의 점수는?
+	</span>
 
    <div class="table-container" style="margin-left: 400px;">
-     <img class="sort-btn" src="/images/btn_recent.png"  onmouseover="this.src='/images/btn_recent_selected.png'"  onmouseout="this.src='/images/btn_recent.png'"/>
-     <img class="sort-btn" src="/images/btn_score.png"  onmouseover="this.src='/images/btn_score_selected.png'"  onmouseout="this.src='/images/btn_score.png'"/>
-     <table>
+     <table style="filter:alpha(opacity=50)">
+       <font color="#01b383">
        <th>
-         사용자
+         순서
        </th>
        <th>
-         장면
+         등록 시간
+       </th>
+
+       <th>
+         이름
+       </th>
+       <th>
+         대사
        </th>
        <th>
          음정
@@ -115,16 +107,22 @@
          강약
        </th>
        <th>
-         다시 보기
+         점수
        </th>
-
+   </font>
        <% for (var i=0; i< record_list.length; i++) { %>
          <tr>
+           <td>
+             <%= i+1 %>등
+           </td>
+           <td>
+             등록 시간
+           </td>
            <td>
              <%= record_list[i].username %>
            </td>
            <td>
-             "<%= script_list[record_list[i].scene].sentence %>"
+             <%= script_list[record_list[i].scene].sentence %>
            </td>
            <td>
              <% var str = ""; if (record_list[i].pitch == 0) {str = "완벽해요!";} else if (record_list[i].pitch == 1) {str = "낮아요!";} else if (record_list[i].pitch == 2) {str = "높아요!";} %>
@@ -139,16 +137,17 @@
              <%= str %>
            </td>
            <td>
-             <img src="/images/replay.png" width=30 alt="" onclick="location.href='/gallery/review/<%= record_list[i].scene%>/<%= record_list[i].filename%>'">
+             <%= record_list[i].score %>점
            </td>
-           <td>
-             <img src='/images/ic_rank_A.png' width=28 /> <%= record_list[i].score %>점
-           </td>
-
          </tr>
        <% } %>
      </table>
    </div>
+
+  <div class="actions">
+    <img src="/images/btn_score.png"  onmouseover="this.src='/images/btn_score_selected.png'"  onmouseout="this.src='/images/btn_score.png'" onclick="location.href='/'"/>
+    <img src="/images/btn_recent.png" onmouseover="this.src='/images/btn_recent_selected.png'"  onmouseout="this.src='/images/btn_recent.png'" onclick="location.href='/'" />
+  </div>
 
  </body>
 </html>
