@@ -32,26 +32,33 @@
     	});
     }
 
+        // Action 수신 API
+    // gigagenie.voice.onActionEvent=function(extra){
+    //   console.log(11111);
+    // 	var word = extra.uword;
+    //     	switch(extra.actioncode){
+    //         // OrderMenu 인텐트 처리
+    //         case 'ToDoAgain':
+    //       		/* 신메뉴 화면 서비스 URL 페이지에서 OrderMenu 인텐트 조합에 해당하는 발화 실행시 발화문에 포함된
+    //       		   NE-PIZZA, NE-AMOUNT 사전 정보를 extra.parameter['NE-어휘사전']로 추출 (각 사전 대표단어 출력)
+    //       		   Ex) 신메뉴 화면에서 "지니야, 불고기피자 2판 주문해줘" 발화 실행 시 신메뉴 화면에서 '주문메뉴 : 불고기피자', '수량 : 2판' 출력
+    //       		*/
+    //       		// document.getElementById('Menu').innerText = extra.parameter['NE-PIZZA'];
+    //       		// document.getElementById('Amount').innerText = extra.parameter['NE-AMOUNT'];
+    //       		// sendTTSAPI("주문이 완료되었습니다. 감사합니다.");
+    //           alert("hello!");
+    //       		break;
+    //         default:
+    // 		      break;
+    //         }
+    // }
+
     // 서비스 종료 명령 수신 API
     gigagenie.voice.onRequestClose=function(){
     	options={};
     	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
     	});
     };
-
-    // gigagenie.voice.onActionEvent=function(extra){
-    //   console.log(extra.actioncode);
-    //   switch(extra.actioncode){
-    //     case 'QueryHello':
-    //         //QueryHello 처리
-    //         break;
-    //     case 'QueryWorld':
-    //         //QUeryWorld 처리
-    //         break;
-    //     default:
-    //         break;
-    //   };
-    // };
 
     </script>
   </head>
@@ -88,12 +95,12 @@
       <p style = "border: 5px solid white; padding:20px; text-align:left; width:80%; line-height:130%" >
       1. <font color="#01b383">"연습하기"</font>에서 성대모사를 하고 <font color="#01b383">점수와 피드백</font>을 확인해보세요~
       <br>
-    &nbsp;&nbsp;  <img src="/images/guide-speak.png" height="50px" align = "top" > &nbsp; <font color="#01b383">"연습할래!"</font>
+    &nbsp;&nbsp;  <img src="/images/guide-speak.png" height="50px" align = "top" > &nbsp; <font color="#01b383">"성대모사 연습할래!"</font>
       </p>
     </span>
     <span class="home-guide">
       <p  style = "border: 4px solid white; padding:20px; text-align:left; width:80%; line-height:130%" >
-2.<font color="#01b383">"더빙하기"</font>에서 실제 장면에 <font color="#01b383">목소리를 직접 더빙</font>해보세요~&nbsp;&nbsp;
+        2.<font color="#01b383">"더빙하기"</font>에서 실제 장면에 <font color="#01b383">목소리를 직접 더빙</font>해보세요~&nbsp;&nbsp;
       <br>
   &nbsp;&nbsp;    <img src="/images/guide-speak.png" height="50px" align = "top" > &nbsp; <font color="#01b383">"더빙하기!"</font>
       </p>

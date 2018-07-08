@@ -184,9 +184,9 @@
         if (result_cd==200) {
           var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;
           if (confirm("달인 갤러리로 이동하시겠습니까?")) {
-            window.location.href = '/save/' + script.id + '/' + filename + '/' + 0;
+            window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
           } else {
-            window.location.href = '/save/' + script.id + '/' + filename + '/' + 1;
+            window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
             // window.location.reload();
           }
         } else {

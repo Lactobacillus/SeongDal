@@ -5,11 +5,20 @@
   font-weight: 500;
   src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyBold.woff') format('woff');
 }
-.audio { 
+.audio {
    display:none;
 }
 .lottemarthappy * {
  font-family: 'LotteMartHappy', sans-serif;
+}
+
+.title {
+  color: white;
+  font-weight: 900;
+  margin-left: 90px;
+  margin-top: 64px;
+  font-size: 64px;
+  height: 90px;
 }
 
 .normal {

@@ -3,7 +3,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
 var wav = require('wav');
-var fs = require('fs-extra');
+var fs = require('fs');
+var fs_extra = require('fs-extra');
 var app = express();
 
 app.set("view engine", 'ejs');
@@ -106,10 +107,10 @@ app.get('/mimic_score/:id', function (req, res) {
 
   var s_id = req.params.id;
   var contact = {};
-  contact.length = 2;
+  contact.length = 1;
   contact.pitch = 1;
-  contact.envelope = 0;
-  contact.score = 76;
+  contact.envelope = 1;
+  contact.score = 25;
   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default'});
 });
 
@@ -191,17 +192,21 @@ app.post('/practice_mimic/:id/:filename', function (req, res) {
   // itself
 });
 
-app.get('/save/:id/:filename/:mode', function (req, res) {
+app.get('/save/:id/:filename/:mode/:score/:pitch/:length/:envelope', function (req, res) {
   var s_id = req.params.id;
   var filename = req.params.filename;
   var mode = req.params.mode;
-  var filename_new = "안재우";
+  var score = req.params.score;
+  var pitch = req.params.pitch;
+  var length = req.params.length;
+  var envelope = req.params.envelope;
 
-  if (s_id == 0) { filename_new += "ain"; } else { filename_new += "raewon"; }
-
+  var filename_new = "안재우_";
+  if (s_id == 0) { filename_new += "ain_"; } else if (s_id == 1) { filename_new += "raewon_"; } else { filename_new += "unknown_"; }
+  filename_new += score + "_" + pitch + "_" + length + "_" + envelope + "_";
   filename_new += (filename+'_slow.wav');
 
-  fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/mimic', filename_new), function (err) {
+  fs_extra.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/mimic', filename_new), function (err) {
     if (err) {
       console.log(err);
     } else {
@@ -286,7 +291,7 @@ app.get('/dubbing/result/:id/:filename', function (req, res) {
        var contact = JSON.parse(body)
 
       console.log('contact: ' + contact);
-      fs.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/dubbing', filename+'_slow.wav'), function (err) {
+      fs_extra.copy('C:\\seongdalAudio\\recorded\\' + filename+'_slow.wav', path.join(__dirname,'public/voices/dubbing', filename+'_slow.wav'), function (err) {
         if (err) {
           console.log(err);
         } else {
@@ -306,7 +311,21 @@ app.get('/dubbing/review/:id/:filename', function (req, res) {
 });
 
 app.get('/gallery', function (req, res) {
-  res.render('gallery/gallery', {script_list: script_list});
+  var record_list = [];
+  fs.readdirSync(path.join(__dirname, 'public/voices/mimic')).forEach(file => {
+    console.log(file);
+    var record_arr = file.split("_");
+    var record = {};
+    record.username = record_arr[0];
+    record.scene = record_arr[1];
+    record.score = record_arr[2];
+    record.pitch = record_arr[3];
+    record.length = record_arr[4];
+    record.envelope = record_arr[5];
+    record.id = record_arr[6];
+    record_list.push(record);
+  })
+  res.render('gallery/gallery', {script_list: script_list, record_list: record_list});
 });
 
 app.get('/gallery/detail/:id', function (req, res) {
