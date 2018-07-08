@@ -339,7 +339,7 @@ app.get('/gallery', function (req, res) {
     record.id = record_arr[6];
     record.filename = file;
     record_list.push(record);
-  })
+  });
   var sortingField = "score";
 
   record_list.sort(function(a, b) { // 오름차순
@@ -347,6 +347,31 @@ app.get('/gallery', function (req, res) {
   });
 
   res.render('gallery/gallery', {script_list: script_list, record_list: record_list});
+});
+
+app.get('/gallery_time', function (req, res) {
+  var record_list = [];
+  fs.readdirSync(path.join(__dirname, 'public/voices/mimic')).forEach(file => {
+    console.log(file);
+    var record_arr = file.split("_");
+    var record = {};
+    record.username = record_arr[0];
+    record.scene = record_arr[1];
+    record.score = record_arr[2];
+    record.pitch = record_arr[3];
+    record.length = record_arr[4];
+    record.envelope = record_arr[5];
+    record.id = record_arr[6];
+    record.filename = file;
+    record_list.push(record);
+  });
+  var sortingField = "id";
+
+  record_list.sort(function(a, b) { // 오름차순
+      return b[sortingField] - a[sortingField];
+  });
+
+  res.render('gallery/gallery_time', {script_list: script_list, record_list: record_list});
 });
 
 app.get('/gallery/review/:id/:filename', function (req, res) {

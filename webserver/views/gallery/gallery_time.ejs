@@ -19,7 +19,7 @@
                 //함수 호출 및 개발 진행
                 //callback 방식
                 var options={};
-                options.ttstext="달인 갤러리입니다. 점수 순으로 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수를 이야기해주세요.";
+                options.ttstext="달인 갤러리입니다. 시간 순으로 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수를 이야기해주세요.";
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -82,7 +82,7 @@
       <% include ../partials/header %>
     </header>
 	<span class="score-title" style="margin-left:10px; margin-top:15px">
-    달인 갤러리(점수순)
+    달인 갤러리(시간순)
 	</span>
 
    <div class="table-container" style="width:90%; margin-left: auto; margin-right:auto;margin-top:60px">
