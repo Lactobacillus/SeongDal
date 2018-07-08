@@ -313,7 +313,13 @@ app.get('/gallery', function (req, res) {
     record.filename = file;
     record_list.push(record);
   })
-  res.render('gallery/gallery', {script_list: script_list, record_list: record_list});
+  var sortingField = "age";
+
+  record_list.sort(function(a, b) { // 오름차순
+      return b[sortingField] - a[sortingField];
+  });
+  
+  res.render('gallery/gallery', {script_list: script_list, record_list: record_list[0:4]});
 });
 
 app.get('/gallery/review/:id/:filename', function (req, res) {
