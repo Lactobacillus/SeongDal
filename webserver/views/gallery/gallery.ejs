@@ -38,18 +38,18 @@
                             } else if (i == script_list.length - 1) {
                               //alert("일치하는 대사가 없습니다.");
                               var options = {};
-                              options.ttstext = "일치하는 대사가 없습니다.";
+                              options.ttstext = "잘 이해하지 못했습니다. 다시 시도해주세요.";
                               gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                                window.location.href = '/';
+                                window.location.reload();
                               });
                             }
                           }
                         } else {
                           //alert("입력 시간이 초과되었습니다.")
                           var options = {};
-                          options.ttstext = "입력 시간이 초과되었습니다.";
+                          options.ttstext = "입력 시간이 초과되었습니다. 다시 시도해주세요.";
                           gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra) {
-                            window.location.href = '/';
+                            window.location.reload();
                           });
                         }
                          });
