@@ -437,11 +437,11 @@ def testSync(target_audio_path, input_audio_path):
 		result['score'] = np.clip((-4.7958 * result_mfcc + 143),0,100)
 
 	if result['pitch_code'] != 0:
-		result['score'] -= 5
+		result['score'] -= 8
 	if result['length_code'] != 0:
-		result['score'] -= 5
+		result['score'] -= 8
 	if result['env_code'] != 0:
-		result['score'] -= 5
+		result['score'] -= 8
 
 	result['score'] = np.clip(result['score'],0,100)
 
