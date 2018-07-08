@@ -107,10 +107,10 @@ app.get('/mimic_score/:id', function (req, res) {
 
   var s_id = req.params.id;
   var contact = {};
-  contact.length = 1;
-  contact.pitch = 1;
+  contact.length = 0;
+  contact.pitch = 0;
   contact.envelope = 1;
-  contact.score = 25;
+  contact.score = 64;
   res.render('mimic/mimic_score', {script: script_list[s_id], contact: contact, filename: 'default'});
 });
 
@@ -202,7 +202,7 @@ app.get('/save/:id/:filename/:mode/:score/:pitch/:length/:envelope', function (r
   var envelope = req.params.envelope;
 
   var filename_new = "안재우_";
-  if (s_id == 0) { filename_new += "ain_"; } else if (s_id == 1) { filename_new += "raewon_"; } else { filename_new += "unknown_"; }
+  filename_new += s_id + "_";
   filename_new += score + "_" + pitch + "_" + length + "_" + envelope + "_";
   filename_new += (filename+'_slow.wav');
 
@@ -323,16 +323,17 @@ app.get('/gallery', function (req, res) {
     record.length = record_arr[4];
     record.envelope = record_arr[5];
     record.id = record_arr[6];
+    record.filename = file;
     record_list.push(record);
   })
   res.render('gallery/gallery', {script_list: script_list, record_list: record_list});
 });
 
-app.get('/gallery/detail/:id', function (req, res) {
+app.get('/gallery/review/:id/:filename', function (req, res) {
   var s_id = req.params.id;
-  res.render('gallery/detail', {script: script_list[s_id]});
+  var filename = req.params.filename;
+  res.render('gallery/review', {script: script_list[s_id], filename: filename});
 });
-
 app.listen(8080, function () {
   console.log('Server On!');
 });

@@ -2,6 +2,7 @@
 <html>
   <head>
     <% include ../partials/head %>
+    <% include ../partials/head_ranking_detail %>
     <script type="text/javascript" src="http://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
     <script type="text/javascript">
     var options={};
@@ -94,30 +95,60 @@
      </div></a>
    </div>
 
+   <div class="table-container" style="margin-left: 400px;">
+     <img class="sort-btn" src="/images/btn_recent.png"  onmouseover="this.src='/images/btn_recent_selected.png'"  onmouseout="this.src='/images/btn_recent.png'"/>
+     <img class="sort-btn" src="/images/btn_score.png"  onmouseover="this.src='/images/btn_score_selected.png'"  onmouseout="this.src='/images/btn_score.png'"/>
+     <table>
+       <th>
+         사용자
+       </th>
+       <th>
+         장면
+       </th>
+       <th>
+         음정
+       </th>
+       <th>
+         속도
+       </th>
+       <th>
+         강약
+       </th>
+       <th>
+         다시 보기
+       </th>
 
-    <div class="main">
+       <% for (var i=0; i< record_list.length; i++) { %>
+         <tr>
+           <td>
+             <%= record_list[i].username %>
+           </td>
+           <td>
+             "<%= script_list[record_list[i].scene].sentence %>"
+           </td>
+           <td>
+             <% var str = ""; if (record_list[i].pitch == 0) {str = "완벽해요!";} else if (record_list[i].pitch == 1) {str = "낮아요!";} else if (record_list[i].pitch == 2) {str = "높아요!";} %>
+             <%= str %>
+           </td>
+           <td>
+             <% var str = ""; if (record_list[i].length == 0) {str = "완벽해요!";} else if (record_list[i].length == 1) {str = "빨라요!";} else if (record_list[i].length == 2) {str = "느려요!";} %>
+             <%= str %>
+           </td>
+           <td>
+             <% var str = ""; if (record_list[i].envelope == 0) {str = "완벽해요!";} else if (record_list[i].envelope == 1) {str = "달라요!";} %>
+             <%= str %>
+           </td>
+           <td>
+             <img src="/images/replay.png" width=30 alt="" onclick="location.href='/gallery/review/<%= record_list[i].scene%>/<%= record_list[i].filename%>'">
+           </td>
+           <td>
+             <img src='/images/ic_rank_A.png' width=28 /> <%= record_list[i].score %>점
+           </td>
 
-      <span class="other-title">
-        순위를 보고 싶은 장면을 골라주세요.
-      </span>
+         </tr>
+       <% } %>
+     </table>
+   </div>
 
-      <div class="main-scene">
-        <% for (var i=0; i< script_list.length; i++) { %>
-          <a href='/gallery/detail/<%=script_list[i].id%>'>
-            <div class="main-scene-item">
-              <img src='/images/<%=script_list[i].image%>' />
-              <span class="item-desc">
-                <span class="desc-title" style="white-space: nowrap; width:400px; overflow:hidden; text-overflow: ellipsis;">
-                  "<%= script_list[i].sentence %>"
-                </span>
-                <span class="desc-mv" style="white-space: nowrap; width:240px; overflow:hidden; text-overflow: ellipsis;">
-                  <%=script_list[i].actorName%>,'<%=script_list[i].movieName%>'
-                </span>
-              </span>
-            </div>
-          </a>
-        <% } %>
-      </div>
-    </div>
  </body>
 </html>
