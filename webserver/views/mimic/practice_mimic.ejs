@@ -21,8 +21,9 @@
                     if(result_cd===200){
                       //1. delivery를 memory로 했을 경우
                       var script = <%- JSON.stringify(script) %>
-                      var d = new Date();
-                      var filename = d.toISOString().slice(0,10).replace(/-/g,"") + d.toISOString().slice(11,19).replace(/:/g,"");
+                      var x = (new Date()).getTimezoneOffset() * 60000;
+                      var localISOTime = (new Date(Date.now() - x)).toISOString().slice(0,-1);
+                      var filename = localISOTime.slice(0,10).replace(/-/g,"") + localISOTime.slice(11,19).replace(/:/g,"");
 
                       var options={};
                       options.delivery='webhook';
