@@ -32,10 +32,10 @@
                           //do next action
                           var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;;
                           var input_voice = extra.voicetext.replace(/\s/g, "");
-                          if (input_voice.indexOf('네') >= 0 && input_voice.indexOf('아니요') < 0) {
-                            window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
-                          } else if (input_voice.indexOf('네') < 0 && input_voice.indexOf('아니요') >= 0) {
-                            window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
+                          if (input_voice.indexOf('네') >= 0 && input_voice.indexOf('아니') < 0) {
+                            yesFunction();
+                          } else if (input_voice.indexOf('네') < 0 && input_voice.indexOf('아니') >= 0) {
+                            noFunction();
                           } else {
                             //extra.reason 에 voice 오류 전달.
                             //alert("일치하는 대사가 없습니다.");
@@ -62,6 +62,22 @@
                 });
     	    };
     	});
+    }
+
+    function yesFunction () {
+      var script = <%- JSON.stringify(script) %>
+      var filename = <%- JSON.stringify(filename) %>
+      var contact = <%- JSON.stringify(contact) %>
+      var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;;
+      window.location.href = '/save/' + script.id + '/' + filename + '/0/' + score_info;
+    }
+
+    function noFunction () {
+      var script = <%- JSON.stringify(script) %>
+      var filename = <%- JSON.stringify(filename) %>
+      var contact = <%- JSON.stringify(contact) %>
+      var score_info = contact.score +'/' + contact.pitch + '/' + contact.length + '/' + contact.envelope;;
+      window.location.href = '/save/' + script.id + '/' + filename + '/1/' + score_info;
     }
 
     // 서비스 종료 명령 수신 API
@@ -134,8 +150,8 @@
     <!-- Modal content -->
     <div class="modal-content" style="text-align:center;">
       <h1>달인 갤러리로 이동하시겠습니까?</h1>
-      <button><h1>네네네</h1></button>
-      <button><h1>아니요</h1></button>
+      <button onclick="yesFunction()"><h1>네네네</h1></button>
+      <button onclick="noFunction()"><h1>아니요</h1></button>
     </div>
   </div>
 

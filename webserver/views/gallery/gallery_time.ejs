@@ -19,7 +19,7 @@
                 //함수 호출 및 개발 진행
                 //callback 방식
                 var options={};
-                options.ttstext="달인 갤러리입니다. 시간 순으로 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수를 이야기해주세요.";
+                options.ttstext="달인 갤러리입니다. 시간 순으로 달인의 작품을 감상해보세요. 감상하고 싶은 작품의 등수 혹은 원하는 메뉴를 말씀해주세요."
                 gigagenie.voice.sendTTS(options,function(result_cd,result_msg,extra){
                     if(result_cd===200){
                       //do next action
@@ -36,8 +36,12 @@
                           else if (extra.voicetext.replace(/\s/g, "") == "4등") idx = 3;
                           else if (extra.voicetext.replace(/\s/g, "") == "5등") idx = 4;
 
-                          if (idx != -1) {
+                          if (idx != -1 && idx < record_list.length) {
                             window.location.href = '/gallery/review/' + record_list[idx].scene + '/' + record_list[idx].filename;
+                          } else if (extra.voicetext.replace(/\s/g, "").indexOf('점수') >= 0 && extra.voicetext.replace(/\s/g, "").indexOf('최신') < 0) {
+                            window.location.href = '/gallery';
+                          } else if (extra.voicetext.replace(/\s/g, "").indexOf('점수') < 0 && extra.voicetext.replace(/\s/g, "").indexOf('최신') >= 0) {
+                            window.location.reload();
                           }
                           else {
                             var options = {};
@@ -75,6 +79,21 @@
     	gigagenie.voice.svcFinished(options,function(result_cd,result_msg,extra){
     	});
     };
+
+    gigagenie.voice.onVoiceCommand=function(event){
+      switch(event){
+          case 'nextPage':
+              //navigate next page
+              break;
+          case 'prevPage':
+              //navigate prev page
+              window.history.back();
+              break;
+          default:
+              break;
+      }
+    };
+
     </script>
   </head>
   <body onload=init()>

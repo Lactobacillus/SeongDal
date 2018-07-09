@@ -431,10 +431,11 @@ def testSync(target_audio_path, input_audio_path):
 
 	#regression
 #	result['score'] = np.clip(-16 * np.log(result_mfcc) + 105, 0, 100)
-	if result_mfcc < 15:
-		result['score'] = np.clip((-2.5375 * result_mfcc + 110), 0, 100)
-	else:
-		result['score'] = np.clip((-4.7958 * result_mfcc + 143),0,100)
+	#if result_mfcc < 15:
+	#	result['score'] = np.clip((-2.5375 * result_mfcc + 110), 0, 100)
+	#else:
+#		result['score'] = np.clip((-4.7958 * result_mfcc + 143),0,100)
+	result['score'] = np.clip((0.0079 * (result_mfcc**4) - 0.3552* (result_mfcc**3) + 4.6471* (result_mfcc**2) - 18.771 * result_mfcc + 105),0,100)
 
 	if result['pitch_code'] != 0:
 		result['score'] -= 8
